@@ -2,8 +2,16 @@
 
 namespace App\Nova;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\File;
+use Laravel\Nova\Fields\Hidden;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Donation extends Resource
@@ -41,6 +49,26 @@ class Donation extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('name')->rules('required', 'string', 'max:255'),
+            Text::make('address'),
+            Text::make('birthdate'),
+            Number::make('Telephone1','Tel1'),
+            Number::make('Telephone2','Tel2'),
+            Number::make('amount'),
+            BelongsTo::make('status_id', 'status', 'App\Nova\Status')->showCreateRelationButton()->withoutTrashed(),
+            Text::make(__('CreatedByUser'),'CreatedByUserId',
+            function () {
+                $userId = $this->user_id;
+                $user = User::findOrFail($userId);
+                return $user->name;
+            })->onlyOnDetail(),
+            Number::make('family Members','familyMembers'),
+            Textarea::make('note','note')->nullable(),
+            Date::make('Date','date'),
+            Hidden::make('user_id', 'user_id')->default(function ($request) {
+                return $request->user()->id;
+            }),
+            File::make('file')
         ];
     }
 

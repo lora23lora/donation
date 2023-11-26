@@ -14,14 +14,17 @@ return new class extends Migration
         Schema::create('donations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('address');
-            $table->integer('amount');
-            $table->integer('Tel1');
-            $table->integer('Tel2');
+            $table->string('address')->nullable();
+            $table->string('birthdate')->nullable();
+            $table->integer('familyMembers')->nullable();
+            $table->integer('amount')->nullable();
+            $table->string('Tel1',100)->nullable();
+            $table->string('Tel2',100)->nullable();
             $table->integer('user_id');
-            $table->tinyInteger('status_id');
-            $table->text('note');
-            $table->date('date');
+            $table->tinyInteger('status_id')->nullable();
+            $table->text('note')->nullable();
+            $table->date('date')->nullable();
+            $table->string('file',100)->nullable();
             $table->timestamps();
         });
     }
