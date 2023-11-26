@@ -20,10 +20,10 @@ class Donation extends Model
         'note',
         'date'
     ];
+    protected $casts = [
+        'date' => 'datetime',
 
-    protected $dates = [
-		'date'
-	];
+    ];
 
     public function status()
     {

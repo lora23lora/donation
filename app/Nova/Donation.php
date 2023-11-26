@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Models\User;
+use App\Nova\Filters\StatusFilter;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Date;
@@ -91,7 +92,9 @@ class Donation extends Resource
      */
     public function filters(NovaRequest $request)
     {
-        return [];
+        return [
+            new StatusFilter
+        ];
     }
 
     /**
