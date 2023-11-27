@@ -17,6 +17,7 @@ class Donation extends Model
         'Tel2',
         'status_id',
         'superviser_id',
+        'city_id',
         'user_id',
         'active',
         'note',

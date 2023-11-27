@@ -55,12 +55,12 @@ class Donation extends Resource
             ID::make()->sortable(),
             Text::make('name')->rules('required', 'string', 'max:255'),
             Text::make('address'),
-            BelongsTo::make('city_id', 'city', 'App\Nova\City')->showCreateRelationButton()->withoutTrashed(),
+            BelongsTo::make('city_id', 'city', 'App\Nova\City')->showCreateRelationButton()->withoutTrashed()->filterable(),
             Text::make('birthdate'),
             Number::make('Telephone1','Tel1'),
             Number::make('Telephone2','Tel2'),
             Number::make('amount'),
-            BelongsTo::make('status_id', 'status', 'App\Nova\Status')->showCreateRelationButton()->withoutTrashed(),
+            BelongsTo::make('status_id', 'status', 'App\Nova\Status')->showCreateRelationButton()->withoutTrashed()->filterable(),
             Text::make(__('CreatedByUser'),'CreatedByUserId',
             function () {
                 $userId = $this->user_id;
@@ -68,7 +68,7 @@ class Donation extends Resource
                 return $user->name;
             })->onlyOnDetail(),
             Number::make('family Members','familyMembers'),
-            BelongsTo::make('superviser_id', 'superviser', 'App\Nova\Superviser')->showCreateRelationButton()->withoutTrashed(),
+            BelongsTo::make('superviser_id', 'superviser', 'App\Nova\Superviser')->showCreateRelationButton()->withoutTrashed()->filterable(),
             Boolean::make('Active','active')->rules('required')->default(1)->filterable(),
             Textarea::make('note','note')->nullable(),
             Date::make('Date','date'),
@@ -99,8 +99,8 @@ class Donation extends Resource
     public function filters(NovaRequest $request)
     {
         return [
-            new StatusFilter,
-            new SuperviserFilter
+
+
         ];
     }
 
