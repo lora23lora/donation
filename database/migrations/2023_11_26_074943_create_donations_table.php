@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('user_id');
             $table->tinyInteger('status_id')->nullable();
             $table->tinyInteger('superviser_id')->nullable();
+            $table->tinyInteger('city_id')->nullable();
             $table->boolean('active')->default(1);
             $table->text('note')->nullable();
             $table->date('date')->nullable();
