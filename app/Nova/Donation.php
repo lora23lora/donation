@@ -4,7 +4,9 @@ namespace App\Nova;
 
 use App\Models\User;
 use App\Nova\Filters\StatusFilter;
+use App\Nova\Filters\SuperviserFilter;
 use Illuminate\Http\Request;
+use Laravel\Nova\Contracts\FilterableField;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
@@ -66,7 +68,7 @@ class Donation extends Resource
             })->onlyOnDetail(),
             Number::make('family Members','familyMembers'),
             BelongsTo::make('superviser_id', 'superviser', 'App\Nova\Superviser')->showCreateRelationButton()->withoutTrashed(),
-            Boolean::make('Active','active')->rules('required'),
+            Boolean::make('Active','active')->rules('required')->default(1)->filterable(),
             Textarea::make('note','note')->nullable(),
             Date::make('Date','date'),
             Hidden::make('user_id', 'user_id')->default(function ($request) {
@@ -96,7 +98,8 @@ class Donation extends Resource
     public function filters(NovaRequest $request)
     {
         return [
-            new StatusFilter
+            new StatusFilter,
+            new SuperviserFilter
         ];
     }
 
