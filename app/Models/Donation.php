@@ -39,4 +39,8 @@ class Donation extends Model
     {
         return $this->belongsTo(Superviser::class, 'superviser_id','id');
     }
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id','id');
+    }
 }

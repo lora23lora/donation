@@ -55,6 +55,7 @@ class Donation extends Resource
             ID::make()->sortable(),
             Text::make('name')->rules('required', 'string', 'max:255'),
             Text::make('address'),
+            BelongsTo::make('city_id', 'city', 'App\Nova\City')->showCreateRelationButton()->withoutTrashed(),
             Text::make('birthdate'),
             Number::make('Telephone1','Tel1'),
             Number::make('Telephone2','Tel2'),
