@@ -16,7 +16,9 @@ class Donation extends Model
         'Tel1',
         'Tel2',
         'status_id',
+        'superviser_id',
         'user_id',
+        'active',
         'note',
         'date'
     ];
@@ -32,5 +34,9 @@ class Donation extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id','id');
+    }
+    public function superviser()
+    {
+        return $this->belongsTo(Superviser::class, 'superviser_id','id');
     }
 }

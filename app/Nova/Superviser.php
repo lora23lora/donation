@@ -2,35 +2,29 @@
 
 namespace App\Nova;
 
-use App\Models\User;
-use App\Nova\Filters\StatusFilter;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\File;
-use Laravel\Nova\Fields\Hidden;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Donation extends Resource
+class Superviser extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\Donation>
+     * @var class-string<\App\Models\Superviser>
      */
-    public static $model = \App\Models\Donation::class;
+    public static $model = \App\Models\Superviser::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -55,23 +49,7 @@ class Donation extends Resource
             Text::make('address'),
             Text::make('birthdate'),
             Number::make('Telephone1','Tel1'),
-            Number::make('Telephone2','Tel2'),
-            Number::make('amount'),
-            BelongsTo::make('status_id', 'status', 'App\Nova\Status')->showCreateRelationButton()->withoutTrashed(),
-            Text::make(__('CreatedByUser'),'CreatedByUserId',
-            function () {
-                $userId = $this->user_id;
-                $user = User::findOrFail($userId);
-                return $user->name;
-            })->onlyOnDetail(),
-            Number::make('family Members','familyMembers'),
-            BelongsTo::make('superviser_id', 'superviser', 'App\Nova\Superviser')->showCreateRelationButton()->withoutTrashed(),
-            Boolean::make('Active','active')->rules('required'),
             Textarea::make('note','note')->nullable(),
-            Date::make('Date','date'),
-            Hidden::make('user_id', 'user_id')->default(function ($request) {
-                return $request->user()->id;
-            }),
             File::make('file')
         ];
     }
@@ -95,9 +73,7 @@ class Donation extends Resource
      */
     public function filters(NovaRequest $request)
     {
-        return [
-            new StatusFilter
-        ];
+        return [];
     }
 
     /**
