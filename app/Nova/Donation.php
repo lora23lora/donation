@@ -3,10 +3,7 @@
 namespace App\Nova;
 
 use App\Models\User;
-use App\Nova\Filters\StatusFilter;
-use App\Nova\Filters\SuperviserFilter;
-use Illuminate\Http\Request;
-use Laravel\Nova\Contracts\FilterableField;
+use Laravel\Nova\Actions\ExportAsCsv;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
@@ -90,19 +87,6 @@ class Donation extends Resource
         return [];
     }
 
-    /**
-     * Get the filters available for the resource.
-     *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return array
-     */
-    public function filters(NovaRequest $request)
-    {
-        return [
-
-
-        ];
-    }
 
     /**
      * Get the lenses available for the resource.
@@ -123,6 +107,25 @@ class Donation extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            ExportAsCsv::make()->nameable()->withFormat(function ($model){
+                return [
+                    'id' => $model->getKey(),
+                    'name' => $model->name,
+                    'address' => $model->address,
+                    'family Members' => $model->familyMembers,
+                    'city' => $model->city->city_name,
+                    'birthdate' => $model->birthdate,
+                    'amount' => $model->amount,
+                    'status' => $model->status->name,
+                    'superviser' => $model->superviser->name,
+                    'telephone1' => $model->Tel1,
+                    'telephone2' => $model->Tel2,
+                    'note' => $model->Tel2,
+                    'active' => $model->active,
+                    'date' => $model->date,
+                ];
+            })
+        ];
     }
 }

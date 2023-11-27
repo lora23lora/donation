@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Actions\ExportAsCsv;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
@@ -95,6 +96,17 @@ class Superviser extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            ExportAsCsv::make()->nameable()->withFormat(function ($model){
+                return [
+                    'id' => $model->getKey(),
+                    'name' => $model->name,
+                    'address' => $model->address,
+                    'birthdate' => $model->birthdate,
+                    'telephone' => $model->Tel1,
+                    'note' => $model->Tel2,
+                ];
+            })
+        ];
     }
 }
