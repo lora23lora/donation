@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Donation;
 use Illuminate\Support\Facades\Route;
+use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+   Route::get('/purchase-pdf', function () {
+
+    $modelIds = request()->query('models');
+    $models = Donation::whereIn('id', explode(',', $modelIds))->get();
+
+    $pdf = PDF::loadView('pdf.donation', compact('models'));
+
+    return $pdf->stream('document.pdf');
+
+})->name('purchase-pdf');

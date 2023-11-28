@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Models\User;
+use App\Nova\Actions\ExportToPdf;
 use Laravel\Nova\Actions\ExportAsCsv;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
@@ -96,7 +97,24 @@ class Donation extends Resource
      */
     public function lenses(NovaRequest $request)
     {
-        return [];
+        return [
+
+            // $url = route('purchase-pdf', ['models' => $models->pluck('PurchaseId')->implode(',')]);
+
+            // return Action::redirect($url);
+
+            // Route::get('/purchase-pdf', function () {
+
+//     $modelIds = request()->query('models');
+//     $models = Purchase::whereIn('PurchaseId', explode(',', $modelIds))->get();
+
+//     $pdf = PDF::loadView('pdf.purchase', compact('models'));
+
+//     return $pdf->stream('document.pdf');
+
+// })->name('purchase-pdf');
+
+        ];
     }
 
     /**
@@ -125,7 +143,8 @@ class Donation extends Resource
                     'active' => $model->active,
                     'date' => $model->date,
                 ];
-            })
+            }),
+            new ExportToPdf
         ];
     }
 }
