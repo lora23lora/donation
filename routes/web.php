@@ -18,7 +18,8 @@ use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
 Route::get('/', function () {
     return view('welcome');
 });
-   Route::get('/purchase-pdf', function () {
+
+Route::get('/purchase-pdf', function () {
 
     $modelIds = request()->query('models');
     $models = Donation::whereIn('id', explode(',', $modelIds))->get();
