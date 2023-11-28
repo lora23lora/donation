@@ -10,7 +10,8 @@
         "laravel/framework": "^10.10",
         "laravel/nova": "4.27.13",
         "laravel/sanctum": "^3.3",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "mpdf/mpdf": "^8.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
