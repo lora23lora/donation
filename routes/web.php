@@ -16,7 +16,7 @@ use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/nova');
 });
 
 Route::get('/purchase-pdf', function () {
