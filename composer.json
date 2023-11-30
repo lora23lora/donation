@@ -12,6 +12,7 @@
         "laravel/nova": "4.27.13",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+        "maatwebsite/excel": "^3.1",
         "mpdf/mpdf": "^8.2"
     },
     "require-dev": {

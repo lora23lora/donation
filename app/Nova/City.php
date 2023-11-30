@@ -41,7 +41,7 @@ class City extends Resource
     public function fields(NovaRequest $request)
     {
         return [
-            ID::make()->sortable(),
+            ID::make('city_id','city_id')->sortable(),
             Text::make('City','city_name')->rules('required', 'string', 'max:255'),
 
         ];

@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\Models\User;
 use App\Nova\Actions\ExportToPdf;
+use App\Nova\Actions\ImportUsers;
 use Laravel\Nova\Actions\ExportAsCsv;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
@@ -144,7 +145,9 @@ class Donation extends Resource
                     'date' => $model->date,
                 ];
             }),
-            new ExportToPdf
+            new ExportToPdf,
+            new Actions\ImportUsers
+
         ];
     }
 }

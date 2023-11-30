@@ -41,7 +41,7 @@ class Status extends Resource
     public function fields(NovaRequest $request)
     {
         return [
-            ID::make()->sortable(),
+            ID::make('status_id','status_id')->sortable(),
             Text::make('Name', 'name')
         ];
     }

@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+use App\Imports\UsersImport;
+use App\Nova\Actions\ImportUsers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use Laravel\Nova\Fields\Gravatar;
@@ -106,6 +108,8 @@ class User extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            new ImportUsers
+        ];
     }
 }

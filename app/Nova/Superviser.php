@@ -45,7 +45,7 @@ class Superviser extends Resource
     public function fields(NovaRequest $request)
     {
         return [
-            ID::make()->sortable(),
+            ID::make('superviser_id','superviser_id')->sortable(),
             Text::make('name')->rules('required', 'string', 'max:255'),
             Text::make('address'),
             Text::make('birthdate'),

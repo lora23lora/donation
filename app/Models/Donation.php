@@ -30,7 +30,7 @@ class Donation extends Model
 
     public function status()
     {
-        return $this->belongsTo(Status::class, 'status_id','id');
+        return $this->belongsTo(Status::class, 'status_id','status_id');
     }
     public function user()
     {
@@ -38,10 +38,10 @@ class Donation extends Model
     }
     public function superviser()
     {
-        return $this->belongsTo(Superviser::class, 'superviser_id','id');
+        return $this->belongsTo(Superviser::class, 'superviser_id','superviser_id');
     }
     public function city()
     {
-        return $this->belongsTo(City::class, 'city_id','id');
+        return $this->belongsTo(City::class, 'city_id','city_id');
     }
 }
