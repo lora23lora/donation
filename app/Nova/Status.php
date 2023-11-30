@@ -29,7 +29,7 @@ class Status extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'status_id'
     ];
 
     /**

@@ -33,7 +33,7 @@ class Superviser extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'superviser_id',
     ];
 
     /**

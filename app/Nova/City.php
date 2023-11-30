@@ -29,7 +29,7 @@ class City extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'city_id',
     ];
 
     /**
