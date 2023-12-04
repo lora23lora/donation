@@ -25,6 +25,7 @@ return new class extends Migration
             $table->tinyInteger('superviser_id')->nullable();
             $table->tinyInteger('city_id')->nullable();
             $table->boolean('active')->default(1);
+            $table->boolean('approved')->default(0);
             $table->text('note')->nullable();
             $table->date('date')->nullable();
             $table->string('file',100)->nullable();

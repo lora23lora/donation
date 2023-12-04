@@ -17,7 +17,9 @@ class DonationObserver
     public function created(Donation $donation): void
     {
 
-        foreach (User::all() as $u) {
+        $adminUsers = User::where('name', 'admin')->get();
+
+        foreach ($adminUsers as $admin) {
             $resourceId = $donation->id;
 
             $baseUrl = '/resources/donations/'; // Change this to your base URL for Donation resource view
@@ -27,7 +29,7 @@ class DonationObserver
                 ->url($baseUrl . $resourceId)
                 ->type('info');
 
-            $u->notify($notification);
+            $admin->notify($notification);
         }
     }
 
