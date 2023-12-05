@@ -42,6 +42,26 @@ class Donation extends Resource
         'id', 'name', 'address' , 'birthdate','Tel1','Tel2','amount','familyMembers'
     ];
 
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        // Check if the logged-in user is an admin
+        if ($request->user()->name === 'admin') {
+            return $query; // Admin can see all donations
+        } else {
+            return $query->where('approved', true); // Regular user can only see approved donations
+        }
+    }
+
+    /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return 'Beneficiary';
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -53,18 +73,24 @@ class Donation extends Resource
         return [
             ID::make()->sortable(),
             Text::make('name')->rules('required', 'string', 'max:255'),
-            Text::make('address'),
-            BelongsTo::make('city_id', 'city', 'App\Nova\City')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
+            Text::make('address')->hideFromIndex(),
+            BelongsTo::make('city', 'city', 'App\Nova\City')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
             Text::make('birthdate'),
             Number::make('Telephone1','Tel1'),
-            Number::make('Telephone2','Tel2'),
-            Number::make('amount'),
-            BelongsTo::make('status_id', 'status', 'App\Nova\Status')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
+            Number::make('Telephone2','Tel2')->hideFromIndex(),
+            // Number::make('amount')->onlyOnForms(),
+            Number::make('amount')->canSee(function($request){
+                return $request->user()->name === 'admin';
+            }),
+            BelongsTo::make('status', 'status', 'App\Nova\Status')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
             Number::make('family Members','familyMembers'),
-            BelongsTo::make('superviser_id', 'superviser', 'App\Nova\Superviser')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
+            BelongsTo::make('superviser', 'superviser', 'App\Nova\Superviser')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
             Boolean::make('Active','active')->rules('required')->default(1)->filterable(),
+            Boolean::make('Approved','approved')->filterable()->canSee(function($request){
+                return $request->user()->name === 'admin';
+            }),
             Textarea::make('note','note')->nullable(),
-            Date::make('Date','date'),
+            Date::make('Date','date')->hideFromIndex(),
             File::make('file')
         ];
     }
