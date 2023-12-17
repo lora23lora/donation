@@ -23,7 +23,7 @@ class Storage extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'item_name';
 
     /**
      * The columns that should be searched.
@@ -31,8 +31,48 @@ class Storage extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'item_name'
     ];
+
+/**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Items');
+    }
+
+    /**
+     * Get the displayable singular label of the resource.
+     *
+     * @return string
+     */
+    public static function singularLabel()
+    {
+        return __('Item');
+    }
+
+    /**
+     * Get the text for the create resource button.
+     *
+     * @return string|null
+     */
+    public static function createButtonLabel()
+    {
+        return __('Create Item');
+    }
+
+    /**
+     * Get the text for the update resource button.
+     *
+     * @return string|null
+     */
+    public static function updateButtonLabel()
+    {
+        return __('Update Item');
+    }
 
     /**
      * Get the fields displayed by the resource.
@@ -47,7 +87,9 @@ class Storage extends Resource
             Text::make('Item Name','item_name'),
             Number::make('Stock','qty'),
             Number::make('Price','price'),
-            Number::make('Total','total'),
+            Number::make('Total')->exceptOnForms()->displayUsing(function () {
+                return $this->qty * $this->price;
+            }),
             Date::make('Date','date')
 
         ];

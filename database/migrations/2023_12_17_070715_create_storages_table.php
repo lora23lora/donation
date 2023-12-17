@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('item_name');
             $table->integer('qty')->nullable();
             $table->integer('price')->nullable();
-            $table->integer('total')->nullable();
+            // $table->integer('total')->nullable();
             $table->date('date')->nullable();
+            $table->string('note');
             $table->timestamps();
         });
     }
