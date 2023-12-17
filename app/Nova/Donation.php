@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\Hidden;
+use Trin4ik\NovaSwitcher\NovaSwitcher;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
@@ -85,7 +86,8 @@ class Donation extends Resource
             BelongsTo::make('status', 'status', 'App\Nova\Status')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
             Number::make('family Members','familyMembers'),
             BelongsTo::make('superviser', 'superviser', 'App\Nova\Superviser')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
-            Boolean::make('Active','active')->rules('required')->default(1)->filterable(),
+            Boolean::make('Active','active')->rules('required')->default(1)->onlyOnForms(),
+            NovaSwitcher::make('Active','active')->filterable()->exceptOnForms(),
             Boolean::make('Approved','approved')->filterable()->canSee(function($request){
                 return $request->user()->name === 'admin';
             }),
