@@ -2,7 +2,12 @@
 
 namespace App\Providers;
 
+use App\Nova\Dashboards\Main;
+use App\Nova\Donation;
+use App\Nova\Storage;
+use App\Nova\User;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Nova\Menu\MenuSection;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 
@@ -16,6 +21,15 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
+
+        Nova::mainMenu(function () {
+            return [
+               MenuSection::dashboard(Main::class)->icon('chart-bar'),
+               MenuSection::resource(Donation::class)->icon('calculator'),
+               MenuSection::resource(Storage::class)->icon('home'),
+               MenuSection::resource(User::class)->icon('user'),
+            ];
+        });
     }
 
     /**
