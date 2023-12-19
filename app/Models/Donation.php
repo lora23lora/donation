@@ -25,6 +25,7 @@ class Donation extends Model
     ];
     protected $casts = [
         'date' => 'datetime',
+        'line_items' => 'array',
 
     ];
 

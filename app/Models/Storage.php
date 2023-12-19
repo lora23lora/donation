@@ -9,6 +9,9 @@ class Storage extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = "item_id";
+
+
     protected $fillable = [
         'item_name',
         'qty',

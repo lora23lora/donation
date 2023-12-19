@@ -83,7 +83,7 @@ class Storage extends Resource
     public function fields(NovaRequest $request)
     {
         return [
-            ID::make()->sortable(),
+            ID::make('item_id','item_id')->sortable(),
             Text::make('Item Name','item_name'),
             Number::make('Stock','qty'),
             Number::make('Price','price'),

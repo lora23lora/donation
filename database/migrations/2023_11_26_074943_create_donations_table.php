@@ -27,6 +27,7 @@ return new class extends Migration
             $table->boolean('active')->default(1);
             $table->boolean('approved')->default(0);
             $table->text('note')->nullable();
+            $table->longText('line_items')->nullable();
             $table->date('date')->nullable();
             $table->string('file',100)->nullable();
             $table->timestamps();

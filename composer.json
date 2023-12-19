@@ -14,7 +14,8 @@
         "laravel/tinker": "^2.8",
         "maatwebsite/excel": "^3.1",
         "mpdf/mpdf": "^8.2",
-        "trin4ik/nova-switcher": "^0.4.0"
+        "trin4ik/nova-switcher": "^0.4.0",
+        "whitecube/nova-flexible-content": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Donation;
+use App\Models\Storage;
 use App\Models\User;
 use App\Notifications\DonationNotification;
 use Illuminate\Support\Facades\URL;
@@ -16,6 +17,8 @@ class DonationObserver
      */
     public function created(Donation $donation): void
     {
+
+        $this->updateStorageFromLineItems($donation->line_items, true);
 
         $adminUsers = User::where('name', 'admin')->get();
 
@@ -31,8 +34,29 @@ class DonationObserver
 
             $admin->notify($notification);
         }
+
     }
 
+
+    private function updateStorageFromLineItems($lineItems, $subtract)
+    {
+        foreach ($lineItems as $item) {
+            $itemId = $item['attributes']['items']; // Assuming 'items' represents item_id in Storage table
+            $qty = $item['attributes']['qty'];
+            $price = $item['attributes']['price'];
+
+            $storageItem = Storage::find($itemId);
+
+            if ($storageItem) {
+                $qtyToSubtract = $subtract ? $qty : -$qty;
+                $priceToSubtract = $subtract ? $price : -$price;
+
+                $storageItem->qty -= $qtyToSubtract;
+                $storageItem->price -= $priceToSubtract;
+                $storageItem->save();
+            }
+        }
+    }
     /**
      * Handle the Donation "updated" event.
      */

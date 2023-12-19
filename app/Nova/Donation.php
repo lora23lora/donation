@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Models\Storage;
 use App\Models\User;
 use App\Nova\Actions\ExportToPdf;
 use App\Nova\Actions\ImportUsers;
@@ -14,9 +15,11 @@ use Laravel\Nova\Fields\Hidden;
 use Trin4ik\NovaSwitcher\NovaSwitcher;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Whitecube\NovaFlexibleContent\Flexible;
 
 class Donation extends Resource
 {
@@ -83,6 +86,14 @@ class Donation extends Resource
             Number::make('amount')->canSee(function($request){
                 return $request->user()->name === 'admin';
             }),
+            Flexible::make('line_items','line_items')
+            ->addLayout('Simple content section', 'wysiwyg', [
+                Select::make('Items')
+                ->options(Storage::pluck('item_name', 'item_id')) // Assuming 'name' is the column containing item names and 'id' is the key
+                ->displayUsingLabels(),
+                Number::make('qty','qty'),
+                Number::make('price','price'),
+            ]),
             BelongsTo::make('status', 'status', 'App\Nova\Status')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
             Number::make('family Members','familyMembers'),
             BelongsTo::make('superviser', 'superviser', 'App\Nova\Superviser')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),

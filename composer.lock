@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "518259a2ca3f0c77f7492ef9b2060cfc",
+    "content-hash": "3113df4a63632799e7550732039bcd0e",
     "packages": [
         {
             "name": "brick/math",
@@ -3664,6 +3664,57 @@
                 "source": "https://github.com/nikic/PHP-Parser/tree/v4.18.0"
             },
             "time": "2023-12-10T21:03:43+00:00"
+        },
+        {
+            "name": "nova-kit/nova-packages-tool",
+            "version": "v1.13.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nova-kit/nova-packages-tool.git",
+                "reference": "9e1312b57d250de5ea05b9cce930abafbb53575c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nova-kit/nova-packages-tool/zipball/9e1312b57d250de5ea05b9cce930abafbb53575c",
+                "reference": "9e1312b57d250de5ea05b9cce930abafbb53575c",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/nova": ">=4.27.0 <4.28.0",
+                "php": "^7.3 || ^8.0"
+            },
+            "require-dev": {
+                "nova-kit/nova-devtool": "^1.0",
+                "orchestra/testbench": "^6.35 || ^7.29 || ^8.9"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "NovaKit\\NovaPackagesTool\\LaravelServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NovaKit\\NovaPackagesTool\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mior Muhammad Zaki",
+                    "email": "crynobone@gmail.com"
+                }
+            ],
+            "description": "Tool for Laravel Nova Packages Development",
+            "support": {
+                "source": "https://github.com/nova-kit/nova-packages-tool/tree/v1.13.3"
+            },
+            "time": "2023-08-29T10:52:23+00:00"
         },
         {
             "name": "nunomaduro/termwind",
@@ -7702,6 +7753,77 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "whitecube/nova-flexible-content",
+            "version": "v1.0.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/whitecube/nova-flexible-content.git",
+                "reference": "056db7fe0e38053faf33cf4d1160271ede4d206d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/whitecube/nova-flexible-content/zipball/056db7fe0e38053faf33cf4d1160271ede4d206d",
+                "reference": "056db7fe0e38053faf33cf4d1160271ede4d206d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "laravel/framework": "^8.0|^9.0|^10.0",
+                "laravel/nova": "^4.0",
+                "nova-kit/nova-packages-tool": "^1.3.1",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.2",
+                "phpunit/phpunit": "^9.5",
+                "psalm/plugin-laravel": "^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Whitecube\\NovaFlexibleContent\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Whitecube\\NovaFlexibleContent\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Toon Van den Bos",
+                    "email": "toon@whitecube.be"
+                }
+            ],
+            "description": "Flexible Content & Repeater Fields for Laravel Nova.",
+            "keywords": [
+                "Flexible",
+                "field",
+                "group",
+                "laravel",
+                "layout",
+                "nova",
+                "repeat"
+            ],
+            "support": {
+                "issues": "https://github.com/whitecube/nova-flexible-content/issues",
+                "source": "https://github.com/whitecube/nova-flexible-content/tree/v1.0.12"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/whitecube",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-07-06T15:01:43+00:00"
         }
     ],
     "packages-dev": [
