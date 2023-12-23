@@ -6,6 +6,8 @@ use App\Models\Storage;
 use App\Models\User;
 use App\Nova\Actions\ExportToPdf;
 use App\Nova\Actions\ImportUsers;
+use App\Nova\Lenses\TotalAmount;
+use App\Nova\Lenses\TotalAmountNew;
 use Laravel\Nova\Actions\ExportAsCsv;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
@@ -149,6 +151,22 @@ class Donation extends Resource
             new ExportToPdf,
             new Actions\ImportUsers
 
+        ];
+    }
+
+
+
+    /**
+     * Get the lenses available for the resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @return array
+     */
+    public function lenses(NovaRequest $request)
+    {
+        return [
+
+            new TotalAmount(),
         ];
     }
 }
