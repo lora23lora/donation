@@ -14,31 +14,6 @@ use Laravel\Nova\Nova;
 
 class TotalAmount extends Lens
 {
-       /**
- * Prepare the resource for JSON serialization.
- *
- * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
- * @param  \Illuminate\Support\Collection  $fields
- * @return array
- */
-public function serializeForIndex(NovaRequest $request, $fields = null)
-{
-    // Get proper response
-    $serialized = parent::serializeForIndex($request, $fields);
-
-    if ($request->lens && $request->lens == 'total_amount') {
-        // If a lens is being viewed
-        $serialized = array_merge($serialized, [
-            'authorizedToView' => false,
-            'authorizedToUpdate' => false,
-            'authorizedToDelete' => false,
-            'authorizedToRestore' => false,
-            'authorizedToForceDelete' => false,
-        ]);
-    }
-
-    return $serialized;
-}
     /**
      * The columns that should be searched.
      *
