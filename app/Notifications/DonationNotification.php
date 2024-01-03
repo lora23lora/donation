@@ -31,7 +31,7 @@ class DonationNotification extends Notification
     {
         return [
             'donation_id' => $this->donation->id,
-            'message' => 'Name: ' . $this->donation->name . ' Status: ' . $this->donation->status->name,
+            'message' => 'Name: ' . $this->donation->name . ' Status: ' . $this->donation->status,
             'redirect_url' => $this->redirectUrl,
         ];
     }
@@ -40,7 +40,7 @@ class DonationNotification extends Notification
     {
         return [
             'donation_id' => $this->donation->id,
-            'message' => 'Name: ' . $this->donation->name . ' Status: ' . $this->donation->status->name,
+            'message' => 'Name: ' . $this->donation->name . ' Status: ' . $this->donation->status,
             'redirect_url' => $this->redirectUrl,
         ];
     }
@@ -54,7 +54,7 @@ class DonationNotification extends Notification
     {
         return [
             'donation_id' => $this->donation->id,
-            'message' => 'Name: ' . $this->donation->name . ' Status: ' . $this->donation->status->name,
+            'message' => 'Name: ' . $this->donation->name . ' Status: ' . $this->donation->status,
             'redirect_url' => $this->redirectUrl,
         ];
     }

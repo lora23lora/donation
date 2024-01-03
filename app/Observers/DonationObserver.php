@@ -28,7 +28,7 @@ class DonationObserver
             $baseUrl = '/resources/donations/'; // Change this to your base URL for Donation resource view
 
             $notification = NovaNotification::make()
-                ->message('Name: ' . $donation->name . ' | Status: ' . $donation->status->name)
+                ->message('Name: ' . $donation->name . ' | Status: ' . $donation->status)
                 ->url($baseUrl . $resourceId)
                 ->type('info');
 

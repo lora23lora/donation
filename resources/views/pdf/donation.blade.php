@@ -61,7 +61,7 @@
                     <td>{{ $model->familyMembers }}</td>
                     <td>{{ $model->city->city_name }}</td>
                     <td>{{ $model->birthdate }}</td>
-                    <td>{{ $model->status->name }}</td>
+                    <td>{{ $model->status }}</td>
                     <td>{{ $model->amount }}</td>
                     <td>{{ $model->Tel1 }}</td>
                     <td>{{ $model->Tel2 }}</td>

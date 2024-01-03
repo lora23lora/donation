@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\Models\Storage;
 use App\Nova\Actions\ExportToPdf;
+use App\Nova\Lenses\CityWithMostBeneficiary;
 use App\Nova\Lenses\TotalAmount;
 use Laravel\Nova\Actions\ExportAsCsv;
 use Laravel\Nova\Fields\BelongsTo;
@@ -54,15 +55,7 @@ class Donation extends Resource
         }
     }
 
-    /**
-     * Get the displayable label of the resource.
-     *
-     * @return string
-     */
-    public static function label()
-    {
-        return 'Beneficiary';
-    }
+  
 
     /**
      * Get the fields displayed by the resource.
@@ -74,8 +67,9 @@ class Donation extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('name')->rules('required', 'string', 'max:255'),
-            Text::make('address')->hideFromIndex(),
+            Text::make('Name','name')->rules('required', 'string', 'max:255'),
+            Text::make('address','address')->hideFromIndex(),
+            Text::make('Status','status'),
             BelongsTo::make('city', 'city', 'App\Nova\City')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
             Text::make('birthdate'),
             Number::make('Telephone1','Tel1'),
@@ -87,12 +81,11 @@ class Donation extends Resource
             Flexible::make('line_items','line_items')
             ->addLayout('Simple content section', 'wysiwyg', [
                 Select::make('Items')
-                ->options(Storage::pluck('item_name', 'item_id')) 
+                ->options(Storage::pluck('item_name', 'item_id'))
                 ->displayUsingLabels(),
                 Number::make('qty','qty'),
                 Number::make('price','price'),
             ]),
-            BelongsTo::make('status', 'status', 'App\Nova\Status')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
             Number::make('family Members','familyMembers'),
             BelongsTo::make('superviser', 'superviser', 'App\Nova\Superviser')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
             Boolean::make('Active','active')->rules('required')->default(1)->onlyOnForms(),
@@ -137,7 +130,7 @@ class Donation extends Resource
                     'city' => $model->city->city_name,
                     'birthdate' => $model->birthdate,
                     'amount' => $model->amount,
-                    'status' => $model->status->name,
+                    'status' => $model->status,
                     'superviser' => $model->superviser->name,
                     'telephone1' => $model->Tel1,
                     'telephone2' => $model->Tel2,
@@ -165,6 +158,7 @@ class Donation extends Resource
         return [
 
             new TotalAmount(),
+            new CityWithMostBeneficiary()
         ];
     }
 }

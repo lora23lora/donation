@@ -15,7 +15,7 @@ class Donation extends Model
         'amount',
         'Tel1',
         'Tel2',
-        'status_id',
+        'status',
         'superviser_id',
         'city_id',
         'user_id',
@@ -29,10 +29,6 @@ class Donation extends Model
 
     ];
 
-    public function status()
-    {
-        return $this->belongsTo(Status::class, 'status_id','status_id');
-    }
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id','id');
