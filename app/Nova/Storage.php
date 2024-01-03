@@ -31,7 +31,7 @@ class Storage extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'item_name'
+        'item_id', 'item_name'
     ];
 
 /**

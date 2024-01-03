@@ -64,6 +64,8 @@ class Donation extends Resource
      */
     public function fields(NovaRequest $request)
     {
+        $availableItems = Storage::where('qty', '>', 0)->pluck('item_name', 'item_id');
+
         return [
             ID::make()->sortable(),
             Text::make('Name','name')->rules('required', 'string', 'max:255'),
@@ -80,9 +82,9 @@ class Donation extends Resource
             Flexible::make('line_items','line_items')
             ->addLayout('Simple content section', 'wysiwyg', [
                 Select::make('Items')
-                ->options(Storage::pluck('item_name', 'item_id'))
+                ->options($availableItems)
                 ->displayUsingLabels(),
-                Number::make('qty','qty'),
+            Number::make('qty', 'qty'),
             ]),
             Number::make('family Members','familyMembers'),
             BelongsTo::make('superviser', 'superviser', 'App\Nova\Superviser')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
