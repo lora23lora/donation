@@ -47,15 +47,14 @@ class Donation extends Resource
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        // Check if the logged-in user is an admin
         if ($request->user()->name === 'admin') {
-            return $query; // Admin can see all donations
+            return $query;
         } else {
-            return $query->where('approved', true); // Regular user can only see approved donations
+            return $query->where('approved', true);
         }
     }
 
-  
+
 
     /**
      * Get the fields displayed by the resource.
@@ -84,7 +83,6 @@ class Donation extends Resource
                 ->options(Storage::pluck('item_name', 'item_id'))
                 ->displayUsingLabels(),
                 Number::make('qty','qty'),
-                Number::make('price','price'),
             ]),
             Number::make('family Members','familyMembers'),
             BelongsTo::make('superviser', 'superviser', 'App\Nova\Superviser')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),

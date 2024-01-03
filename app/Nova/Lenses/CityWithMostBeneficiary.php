@@ -35,7 +35,7 @@ class CityWithMostBeneficiary extends Lens
                 ->leftJoin('cities', 'donations.city_id', '=', 'cities.city_id')
                 ->groupBy('cities.city_name')
                 ->orderByDesc('total_amount')
-                ->with('city') // Assuming 'city' is the relationship in Donation model for the city
+                ->with('city') 
         ));
     }
 
