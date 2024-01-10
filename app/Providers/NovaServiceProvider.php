@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Nova\Beneficiary;
 use App\Nova\Dashboards\Main;
 use App\Nova\Donation;
 use App\Nova\Storage;
@@ -26,6 +27,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             return [
                MenuSection::dashboard(Main::class)->icon('chart-bar'),
                MenuSection::resource(Donation::class)->icon('calculator'),
+               MenuSection::resource(Beneficiary::class)->icon('calculator'),
                MenuSection::resource(Storage::class)->icon('home'),
                MenuSection::resource(User::class)->icon('user'),
             ];

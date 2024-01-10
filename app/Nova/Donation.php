@@ -68,14 +68,10 @@ class Donation extends Resource
 
         return [
             ID::make()->sortable(),
-            Text::make('Name','name')->rules('required', 'string', 'max:255'),
-            Text::make('address','address')->hideFromIndex(),
-            Text::make('Status','status'),
-            BelongsTo::make('city', 'city', 'App\Nova\City')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
-            Text::make('birthdate'),
-            Number::make('Telephone1','Tel1'),
-            Number::make('Telephone2','Tel2')->hideFromIndex(),
-            // Number::make('amount')->onlyOnForms(),
+            BelongsTo::make(__('beneficiary'),'beneficiary','App\Nova\Beneficiary')->display(function ($donation) {
+                return __('Id:') . ' '. $donation->id . ' - ' . __('Name:'). ' ' . $donation->name . ' - ' . __('Statuses:'). ' ' . $donation->statuses . ' - ' . __('familyMembers:'). ' ' . $donation->familyMembers . ' - ' . __('Telephone 1:'). ' ' . $donation->Tel1;
+            })->showCreateRelationButton()->withoutTrashed()->onlyOnForms()->searchable(),
+
             Number::make('amount')->canSee(function($request){
                 return $request->user()->name === 'admin';
             }),
@@ -86,16 +82,11 @@ class Donation extends Resource
                 ->displayUsingLabels(),
             Number::make('qty', 'qty'),
             ]),
-            Number::make('family Members','familyMembers'),
-            BelongsTo::make('superviser', 'superviser', 'App\Nova\Superviser')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
-            Boolean::make('Active','active')->rules('required')->default(1)->onlyOnForms(),
-            NovaSwitcher::make('Active','active')->filterable()->exceptOnForms(),
+
             Boolean::make('Approved','approved')->filterable()->canSee(function($request){
                 return $request->user()->name === 'admin';
             }),
-            Textarea::make('note','note')->nullable(),
-            Date::make('Date','date')->hideFromIndex(),
-            File::make('file')
+
         ];
     }
 

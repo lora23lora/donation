@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->tinyInteger('beneficiary_id');
             $table->integer('amount')->nullable();
-            $table->integer('user_id');
+            $table->integer('user_id')->nullable();
             $table->boolean('approved')->default(0);
             $table->text('note')->nullable();
             $table->longText('line_items')->nullable();
