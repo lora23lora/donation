@@ -10,17 +10,12 @@ class Donation extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'address',
         'amount',
-        'Tel1',
-        'Tel2',
-        'status',
-        'superviser_id',
-        'city_id',
         'user_id',
-        'active',
+        'beneficiary_id',
+        'approved',
         'note',
+        'line_items',
         'date'
     ];
     protected $casts = [
@@ -33,12 +28,9 @@ class Donation extends Model
     {
         return $this->belongsTo(User::class, 'user_id','id');
     }
-    public function superviser()
+    public function beneficiary()
     {
-        return $this->belongsTo(Superviser::class, 'superviser_id','superviser_id');
+        return $this->belongsTo(Beneficiary::class, 'beneficiary_id','id');
     }
-    public function city()
-    {
-        return $this->belongsTo(City::class, 'city_id','city_id');
-    }
+
 }
