@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('qty')->nullable();
             $table->integer('price')->nullable();
             $table->date('date')->nullable();
-            $table->string('note');
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

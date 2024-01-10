@@ -7,6 +7,7 @@ use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Storage extends Resource
@@ -90,7 +91,8 @@ class Storage extends Resource
             Number::make('Total')->exceptOnForms()->displayUsing(function () {
                 return $this->qty * $this->price;
             }),
-            Date::make('Date','date')
+            Date::make('Date','date'),
+            Textarea::make('Note','note')
 
         ];
     }

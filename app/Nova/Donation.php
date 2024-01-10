@@ -9,14 +9,9 @@ use App\Nova\Lenses\TotalAmount;
 use Laravel\Nova\Actions\ExportAsCsv;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\Date;
-use Laravel\Nova\Fields\File;
-use Trin4ik\NovaSwitcher\NovaSwitcher;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Whitecube\NovaFlexibleContent\Flexible;
 
@@ -72,6 +67,8 @@ class Donation extends Resource
                 return __('Id:') . ' '. $donation->id . ' - ' . __('Name:'). ' ' . $donation->name . ' - ' . __('Statuses:'). ' ' . $donation->statuses . ' - ' . __('familyMembers:'). ' ' . $donation->familyMembers . ' - ' . __('Telephone 1:'). ' ' . $donation->Tel1;
             })->showCreateRelationButton()->withoutTrashed()->onlyOnForms()->searchable(),
 
+            BelongsTo::make(__('beneficiary'),'beneficiary','App\Nova\Beneficiary')->onlyOnIndex(),
+
             Number::make('amount')->canSee(function($request){
                 return $request->user()->name === 'admin';
             }),
@@ -115,19 +112,18 @@ class Donation extends Resource
             ExportAsCsv::make()->nameable()->withFormat(function ($model){
                 return [
                     'id' => $model->getKey(),
-                    'name' => $model->name,
-                    'address' => $model->address,
-                    'family Members' => $model->familyMembers,
-                    'city' => $model->city->city_name,
-                    'birthdate' => $model->birthdate,
+                    'name' => $model->beneficiary->name,
+                    'city' => $model->beneficiary->city->city_name,
+                    'address' => $model->beneficiary->address,
+                    'birthdate' => $model->beneficiary->birthdate,
+                    'familyMembers' => $model->beneficiary->familyMembers,
+                    'statuses' => $model->beneficiary->statuses,
+                    'superviser' => $model->beneficiary->superviser->name,
+                    'Tel1' => $model->beneficiary->Tel1,
+                    'Tel2' => $model->beneficiary->Tel2,
+                    'active' => $model->beneficiary->active,
                     'amount' => $model->amount,
-                    'status' => $model->status,
-                    'superviser' => $model->superviser->name,
-                    'telephone1' => $model->Tel1,
-                    'telephone2' => $model->Tel2,
-                    'note' => $model->Tel2,
-                    'active' => $model->active,
-                    'date' => $model->date,
+                    'note' => $model->beneficiary->note,
                 ];
             }),
             new ExportToPdf,
