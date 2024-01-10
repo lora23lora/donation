@@ -32,29 +32,23 @@ class TotalAmount extends Lens
     {
         return $request->withOrdering($request->withFilters(
             $query->select(self::columns())
-                ->selectRaw('CONCAT(donations.name, "_", donations.city_id) as name_city, COUNT(*) AS Occurrences')
-                ->groupBy('name_city', 'donations.name', 'donations.city_id')
+                ->join('beneficiaries', 'donations.beneficiary_id', '=', 'beneficiaries.id')
+                ->selectRaw('CONCAT(beneficiaries.name) as name,CONCAT(beneficiaries.id) as beneficiaries_id, COUNT(*) AS Occurrences')
+                ->groupBy('name', 'beneficiaries_id', 'beneficiaries.city_id')
                 ->withCasts([
                     'amount' => 'float',
                 ])
         ), fn ($query) => $query->orderBy('total', 'desc'));
     }
 
- /**
-     * Get the columns that should be selected.
-     *
-     * @return array
-     */
     protected static function columns()
     {
         return [
-            'donations.name',
-            'donations.city_id',
+            'beneficiaries.name',
+            'beneficiaries.city_id',
             DB::raw('sum(donations.amount) as total'),
         ];
     }
-
-
     /**
      * Get the fields available to the lens.
      *
@@ -64,16 +58,16 @@ class TotalAmount extends Lens
     public function fields(NovaRequest $request)
     {
         return [
-            // ID::make(Nova::__('ID'), 'id')->sortable(),
-            Text::make('Name', 'name'),
-            BelongsTo::make('city', 'city', 'App\Nova\City'),
+            ID::make('beneficiaries_id','beneficiaries_id'),
+            Text::make(__('name'),'name')->onlyOnIndex(),
+
+            // Text::make('City', 'city', 'App\Nova\City'),
 
             Number::make('Total', 'total', function ($value) {
                 return '$'.number_format($value, 2);
             }),
 
             Number::make('Occurrences','Occurrences'),
-
         ];
     }
 

@@ -64,7 +64,7 @@ class Donation extends Resource
         return [
             ID::make()->sortable(),
             BelongsTo::make(__('beneficiary'),'beneficiary','App\Nova\Beneficiary')->display(function ($donation) {
-                return __('Id:') . ' '. $donation->id . ' - ' . __('Name:'). ' ' . $donation->name . ' - ' . __('Statuses:'). ' ' . $donation->statuses . ' - ' . __('familyMembers:'). ' ' . $donation->familyMembers . ' - ' . __('Telephone 1:'). ' ' . $donation->Tel1;
+                return __('Id:') . ' '. $donation->id . ' - ' . __('Name:'). ' ' . $donation->name . ' - ' . __('Statuses:'). ' ' . $donation->statuses . ' - ' . __('familyMembers:'). ' ' . $donation->familyMembers . ' - ' . __('Telephone 1:'). ' ' . $donation->Tel1 . ' - ' . __('City:'). ' ' . $donation->city->city_name;
             })->showCreateRelationButton()->withoutTrashed()->onlyOnForms()->searchable(),
 
             BelongsTo::make(__('beneficiary'),'beneficiary','App\Nova\Beneficiary')->onlyOnIndex(),
