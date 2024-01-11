@@ -31,12 +31,13 @@ class CityWithMostBeneficiary extends Lens
     public static function query(LensRequest $request, $query)
     {
         return $request->withOrdering($request->withFilters(
-            $query->select('cities.city_name', DB::raw('SUM(donations.amount) as total_amount'))
-                ->leftJoin('cities', 'donations.city_id', '=', 'cities.city_id')
-                ->groupBy('cities.city_name')
+            $query->select('cities.city_name','cities.city_id as cityId', DB::raw('SUM(donations.amount) as total_amount'))
+                ->leftJoin('beneficiaries', 'donations.beneficiary_id', '=', 'beneficiaries.id')
+                ->leftJoin('cities', 'beneficiaries.city_id', '=', 'cities.city_id')
+                ->groupBy('cities.city_name','cities.city_id')
                 ->orderByDesc('total_amount')
-                ->with('city') 
         ));
+
     }
 
 
@@ -49,8 +50,8 @@ class CityWithMostBeneficiary extends Lens
     public function fields(NovaRequest $request)
     {
         return [
+            ID::make('cityId', 'cityId')->sortable(),
             Text::make('City', 'city_name'),
-
             Number::make('Beneficiary Total Amount', 'total_amount')->displayUsing(function ($value) {
                 return 'IQD'. ' ' . number_format($value, 2);
             }),

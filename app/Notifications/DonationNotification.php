@@ -8,7 +8,8 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 class DonationNotification extends Notification
-{ protected $donation;
+{
+    protected $donation;
     protected $redirectUrl;
 
     public function __construct($donation)
