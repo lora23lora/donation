@@ -37,7 +37,7 @@ class Donation extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'address' , 'birthdate','Tel1','Tel2','amount','familyMembers'
+        'id','amount'
     ];
 
     public static function indexQuery(NovaRequest $request, $query)
@@ -82,7 +82,7 @@ class Donation extends Resource
 
             Boolean::make('Approved','approved')->filterable()->canSee(function($request){
                 return $request->user()->name === 'admin';
-            }),
+            })->filterable(),
 
         ];
     }

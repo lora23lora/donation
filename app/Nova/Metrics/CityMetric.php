@@ -2,6 +2,7 @@
 
 namespace App\Nova\Metrics;
 
+use App\Models\Beneficiary;
 use App\Models\City;
 use App\Models\Donation;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -17,7 +18,7 @@ class CityMetric extends Partition
      */
     public function calculate(NovaRequest $request)
     {
-        return $this->count($request, Donation::class, 'city_id')->label(function ($value) {
+        return $this->count($request, Beneficiary::class, 'city_id')->label(function ($value) {
             $city = City::find($value); // Assuming City model has the name attribute
             return $city ? $city->city_name : 'Unknown';
         });
