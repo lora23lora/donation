@@ -25,7 +25,7 @@ class DonationObserver
             $baseUrl = '/resources/donations/';
 
             $notification = NovaNotification::make()
-                ->message('Name: ' . $donation->name . ' | Status: ' . $donation->status)
+                ->message('Name: ' . $donation->beneficiary->name . ' | Status: ' . $donation->beneficiary->statuses)
                 ->url($baseUrl . $resourceId)
                 ->type('info');
 

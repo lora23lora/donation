@@ -2,9 +2,6 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 class DonationNotification extends Notification
@@ -32,7 +29,7 @@ class DonationNotification extends Notification
     {
         return [
             'donation_id' => $this->donation->id,
-            'message' => 'Name: ' . $this->donation->name . ' Status: ' . $this->donation->status,
+            'message' => 'Name: ' . $this->donation->beneficiary->name . ' Status: ' . $this->donation->beneficiary->statuses,
             'redirect_url' => $this->redirectUrl,
         ];
     }
@@ -41,7 +38,7 @@ class DonationNotification extends Notification
     {
         return [
             'donation_id' => $this->donation->id,
-            'message' => 'Name: ' . $this->donation->name . ' Status: ' . $this->donation->status,
+            'message' => 'Name: ' . $this->donation->beneficiary->name . ' Status: ' . $this->donation->beneficiary->statuses,
             'redirect_url' => $this->redirectUrl,
         ];
     }
@@ -55,7 +52,7 @@ class DonationNotification extends Notification
     {
         return [
             'donation_id' => $this->donation->id,
-            'message' => 'Name: ' . $this->donation->name . ' Status: ' . $this->donation->status,
+            'message' => 'Name: ' . $this->donation->beneficiary->name . ' Status: ' . $this->donation->beneficiary->statuses,
             'redirect_url' => $this->redirectUrl,
         ];
     }
