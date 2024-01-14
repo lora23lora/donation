@@ -2,9 +2,11 @@
 
 namespace App\Observers;
 
+use App\Mail\DonationCreated;
 use App\Models\Donation;
 use App\Models\Storage;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Laravel\Nova\Notifications\NovaNotification;
 
 class DonationObserver
@@ -31,6 +33,7 @@ class DonationObserver
 
             $admin->notify($notification);
         }
+        Mail::to('nuhaahmad744@gmail.com')->send(new DonationCreated($donation));
 
     }
 
