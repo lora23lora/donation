@@ -1,36 +1,50 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Donation PDF</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            /* Add more styles as needed */
         }
-        /* Define CSS styles for the table */
+
         table {
             border-collapse: collapse;
             width: 100%;
         }
-        th, td {
+
+        th,
+        td {
             text-align: left;
             padding: 8px;
-            border: 1px solid rgb(39, 39, 70); /* Set border for each cell */
+            border: 1px solid rgba(211, 213, 214, 0.89);
         }
+
         th {
-            background-color: #b4b0b0; /* Set background color for header cells */
+            background-color: #67a0c4;
+            color: white;
         }
-        /* Set specific borders */
+
         td:first-child,
         th:first-child {
-            border-left: none; /* Remove left border for first column */
+            border-left: none;
         }
+
         td:last-child,
         th:last-child {
-            border-right: none; /* Remove right border for last column */
+            border-right: none;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #ecf5fb;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #ffffff;
         }
     </style>
 </head>
+
 <body>
     <div class="title">Donation Information</div>
     <table>
@@ -46,32 +60,37 @@
                 <th>Amount</th>
                 <th>Tel1</th>
                 <th>Tel2</th>
-                <th>Superviser</th>
+                <th>Supervisor</th>
                 <th>Date</th>
                 <th>Note</th>
-                <!-- Add table headers for other fields -->
             </tr>
         </thead>
         <tbody>
-            @foreach($models as $model)
-                <tr>
+            @foreach ($models as $model)
+                @php
+                    $rowColor = $loop->iteration % 2 == 0 ? '#ffffff' : '#ecf5fb';
+                @endphp
+                <tr style="background-color: {{ $rowColor }}">
                     <td>{{ $model->id }}</td>
-                    <td>{{ $model->name }}</td>
-                    <td>{{ $model->address }}</td>
-                    <td>{{ $model->familyMembers }}</td>
-                    <td>{{ $model->city->city_name }}</td>
-                    <td>{{ $model->birthdate }}</td>
-                    <td>{{ $model->status }}</td>
+                    <td>{{ $model->beneficiary->name }}</td>
+                    <td>{{ $model->beneficiary->address }}</td>
+                    <td>{{ $model->beneficiary->familyMembers }}</td>
+                    <td>{{ $model->beneficiary->city->city_name }}</td>
+                    <td>{{ $model->beneficiary->birthdate }}</td>
+                    <td>{{ $model->beneficiary->statuses }}</td>
                     <td>{{ $model->amount }}</td>
-                    <td>{{ $model->Tel1 }}</td>
-                    <td>{{ $model->Tel2 }}</td>
-                    <td>{{ $model->superviser->name }}</td>
+                    <td>{{ $model->beneficiary->Tel1 }}</td>
+                    <td>{{ $model->beneficiary->Tel2 }}</td>
+                    <td>{{ $model->beneficiary->superviser->name }}</td>
                     <td>{{ $model->date }}</td>
                     <td>{{ $model->note }}</td>
-                    <!-- Display other fields within the loop -->
                 </tr>
             @endforeach
         </tbody>
     </table>
 </body>
+
 </html>
+<tbody>
+
+</tbody>
