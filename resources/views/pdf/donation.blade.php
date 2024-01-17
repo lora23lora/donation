@@ -63,12 +63,14 @@
                 <th>Supervisor</th>
                 <th>Date</th>
                 <th>Note</th>
+                <th>Item</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($models as $model)
                 @php
                     $rowColor = $loop->iteration % 2 == 0 ? '#ffffff' : '#ecf5fb';
+                    $itemId = $model->line_items[0]['attributes']['items'];
                 @endphp
                 <tr style="background-color: {{ $rowColor }}">
                     <td>{{ $model->id }}</td>
@@ -84,6 +86,16 @@
                     <td>{{ $model->beneficiary->superviser->name }}</td>
                     <td>{{ $model->date }}</td>
                     <td>{{ $model->note }}</td>
+                    <td>{{ $itemId }}</td>
+                    {{--
+                         [
+                        {
+                        "layout":"wysiwyg",
+                        "key":"cLTQ44yrbmaz7K6C",
+                        "attributes":{"items":null,"qty":null}
+                         }
+                        ]
+                         --}}
                 </tr>
             @endforeach
         </tbody>

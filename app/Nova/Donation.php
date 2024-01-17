@@ -71,7 +71,8 @@ class Donation extends Resource
 
             Number::make('amount')->canSee(function($request){
                 return $request->user()->name === 'admin';
-            }),
+            })->onlyOnForms(),
+            Number::make('amount')->exceptOnForms(),
             Flexible::make('line_items','line_items')
             ->addLayout('Simple content section', 'wysiwyg', [
                 Select::make('Items')
@@ -124,6 +125,7 @@ class Donation extends Resource
                     'active' => $model->beneficiary->active,
                     'amount' => $model->amount,
                     'note' => $model->beneficiary->note,
+                    'item' => $model->line_items,
                 ];
             }),
             new ExportToPdf,
