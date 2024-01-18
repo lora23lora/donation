@@ -2,16 +2,14 @@
 
 namespace App\Nova;
 
-use Illuminate\Http\Request;
+use App\Nova\Actions\BeneficiaryPdf;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Actions\ExportAsCsv;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\File;
 use Trin4ik\NovaSwitcher\NovaSwitcher;
 use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -86,6 +84,24 @@ class Beneficiary extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            ExportAsCsv::make()->nameable()->withFormat(function ($model){
+                return [
+                    'id' => $model->getKey(),
+                    'name' => $model->name,
+                    'city' => $model->city->city_name,
+                    'address' => $model->address,
+                    'birthdate' => $model->birthdate,
+                    'familyMembers' => $model->familyMembers,
+                    'statuses' => $model->statuses,
+                    'superviser' => $model->superviser->name,
+                    'Tel1' => $model->Tel1,
+                    'Tel2' => $model->Tel2,
+                    'active' => $model->active,
+                    'note' => $model->note,
+                ];
+            }),
+            new BeneficiaryPdf
+        ];
     }
 }

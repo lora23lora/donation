@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Beneficiary;
 use App\Models\Donation;
 use Illuminate\Support\Facades\Route;
 use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
@@ -19,7 +20,7 @@ Route::get('/', function () {
     return redirect('/nova');
 });
 
-Route::get('/purchase-pdf', function () {
+Route::get('/donation-pdf', function () {
 
     $modelIds = request()->query('models');
     $models = Donation::whereIn('id', explode(',', $modelIds))->get();
@@ -28,4 +29,15 @@ Route::get('/purchase-pdf', function () {
 
     return $pdf->stream('document.pdf');
 
-})->name('purchase-pdf');
+})->name('donation-pdf');
+
+Route::get('/beneficiary-pdf', function () {
+
+    $modelIds = request()->query('models');
+    $models = Beneficiary::whereIn('id', explode(',', $modelIds))->get();
+
+    $pdf = PDF::loadView('pdf.beneficiary', compact('models'));
+
+    return $pdf->stream('document.pdf');
+
+})->name('beneficiary-pdf');

@@ -10,7 +10,7 @@ use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class ExportToPdf extends Action
+class BeneficiaryPdf extends Action
 {
     use InteractsWithQueue, Queueable;
 
@@ -23,7 +23,7 @@ class ExportToPdf extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        $url = route('donation-pdf', ['models' => $models->pluck('id')->implode(',')]);
+        $url = route('beneficiary-pdf', ['models' => $models->pluck('id')->implode(',')]);
 
             return Action::redirect($url);
     }
