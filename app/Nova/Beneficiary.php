@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Nova\Actions\BeneficiaryPdf;
+use App\Nova\Actions\ImportBeneficiaries;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Actions\ExportAsCsv;
 use Laravel\Nova\Fields\BelongsTo;
@@ -101,7 +102,8 @@ class Beneficiary extends Resource
                     'note' => $model->note,
                 ];
             }),
-            new BeneficiaryPdf
+            new BeneficiaryPdf,
+            new ImportBeneficiaries
         ];
     }
 }

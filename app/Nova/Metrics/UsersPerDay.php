@@ -9,6 +9,16 @@ use Laravel\Nova\Nova;
 
 class UsersPerDay extends Trend
 {
+
+
+
+    public function name()
+    {
+        return 'Amount Per Beneficiary';
+    }
+
+
+
     /**
      * Calculate the value of the metric.
      *
@@ -18,7 +28,7 @@ class UsersPerDay extends Trend
     public function calculate(NovaRequest $request)
     {
         return $this->sumByDays($request, Donation::class,'amount');
-        
+
     }
 
     /**

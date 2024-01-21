@@ -129,7 +129,6 @@ class Donation extends Resource
                 ];
             }),
             new ExportToPdf,
-            new Actions\ImportUsers
 
         ];
     }

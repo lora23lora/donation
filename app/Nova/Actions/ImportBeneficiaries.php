@@ -2,30 +2,22 @@
 
 namespace App\Nova\Actions;
 
+use App\Imports\BeneficiariesImport;
+use App\Imports\UsersImport;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
+use Laravel\Nova\Fields\File;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Maatwebsite\Excel\Facades\Excel;
 
-class ImportUsers extends Action
+class ImportBeneficiaries extends Action
 {
-
     use InteractsWithQueue, Queueable;
-
-    public $standalone = true;
-
-    /**
-     * Get the displayable name of the action.
-     *
-     * @return string
-     */
-    public function name() {
-        return __('Import Donations');
-    }
-
+public $standalone = true;
     /**
      * Perform the action on the given models.
      *
@@ -35,7 +27,8 @@ class ImportUsers extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        \Maatwebsite\Excel\Facades\Excel::import(new \App\Imports\UsersImport, $fields->file);
+        Excel::import(new BeneficiariesImport, $fields->file);
+
         return Action::message('It worked!');
     }
 
@@ -48,7 +41,7 @@ class ImportUsers extends Action
     public function fields(NovaRequest $request)
     {
         return [
-            \Laravel\Nova\Fields\File::make('File')
+            File::make('File')
                 ->rules('required'),
         ];
     }
