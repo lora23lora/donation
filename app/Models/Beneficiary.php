@@ -33,4 +33,8 @@ class Beneficiary extends Model
     {
         return $this->belongsTo(City::class, 'city_id','city_id');
     }
+    public function donation()
+    {
+        return $this->hasMany(Donation::class, 'beneficiary_id','id');
+    }
 }

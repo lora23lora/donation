@@ -9,6 +9,7 @@ use Laravel\Nova\Actions\ExportAsCsv;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\File;
+use Laravel\Nova\Fields\HasMany;
 use Trin4ik\NovaSwitcher\NovaSwitcher;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
@@ -62,7 +63,8 @@ class Beneficiary extends Resource
             Boolean::make('Active','active')->rules('required')->default(1)->onlyOnForms(),
             NovaSwitcher::make('Active','active')->filterable()->exceptOnForms(),
             File::make('file'),
-            Textarea::make('note','note')->nullable()
+            Textarea::make('note','note')->nullable(),
+            HasMany::make('donation','donation', 'App\Nova\Donation')->nullable(),
         ];
     }
 
