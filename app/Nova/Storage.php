@@ -84,15 +84,15 @@ class Storage extends Resource
     public function fields(NovaRequest $request)
     {
         return [
-            ID::make('item_id','item_id')->sortable(),
-            Text::make('Item Name','item_name'),
-            Number::make('Stock','qty'),
-            Number::make('Price','price'),
-            Number::make('Total')->exceptOnForms()->displayUsing(function () {
+            ID::make(__('item_id'),'item_id')->sortable(),
+            Text::make(__('Item Name'),'item_name'),
+            Number::make(__('Quantitiy'),'qty'),
+            Number::make(__('Price'),'price'),
+            Number::make(__('Total'))->exceptOnForms()->displayUsing(function () {
                 return $this->qty * $this->price;
             }),
-            Date::make('Date','date'),
-            Textarea::make('Note','note')
+            Date::make(__('Date'),'date'),
+            Textarea::make(__('Note'),'note')
 
         ];
     }
