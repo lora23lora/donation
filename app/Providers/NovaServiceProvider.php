@@ -85,8 +85,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             // new NovaImport,
-            // ...
-        ];
+            new \Badinansoft\LanguageSwitch\LanguageSwitch(),        ];
     }
 
     /**

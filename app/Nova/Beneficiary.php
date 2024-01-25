@@ -33,6 +33,34 @@ class Beneficiary extends Resource
     public static $title = 'name';
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Name Records');
+    }
+
+    /**
+     * Get the displayable singular label of the resource.
+     *
+     * @return string
+     */
+    public static function singularLabel()
+    {
+        return __('Record');
+    }
+    /**
+     * Get the text for the create resource button.
+     *
+     * @return string|null
+     */
+    public static function createButtonLabel()
+    {
+        return __('Create Record');
+    }
+    /**
      * The columns that should be searched.
      *
      * @var array
@@ -51,19 +79,19 @@ class Beneficiary extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Name','name')->rules('required', 'string', 'max:255'),
-            Text::make('address','address')->hideFromIndex(),
-            Text::make('Status','statuses'),
-            BelongsTo::make('city', 'city', 'App\Nova\City')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
-            Text::make('birthdate'),
-            Number::make('Telephone 1','Tel1'),
-            Number::make('Telephone 2','Tel2')->hideFromIndex(),
-            Number::make('family Members','familyMembers'),
-            BelongsTo::make('superviser', 'superviser', 'App\Nova\Superviser')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
-            Boolean::make('Active','active')->rules('required')->default(1)->onlyOnForms(),
-            NovaSwitcher::make('Active','active')->filterable()->exceptOnForms(),
-            File::make('file'),
-            Textarea::make('note','note')->nullable(),
+            Text::make(__('Name'),'name')->rules('required', 'string', 'max:255'),
+            Text::make(__('Address'),'address')->hideFromIndex(),
+            Text::make(__('Status'),'statuses'),
+            BelongsTo::make(__('city'), 'city', 'App\Nova\City')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
+            Text::make(__('Birthdate'),'birthdate'),
+            Number::make(__('Telephone 1'),'Tel1'),
+            Number::make(__('Telephone 2'),'Tel2')->hideFromIndex(),
+            Number::make(__('Family Members'),'familyMembers'),
+            BelongsTo::make(__('superviser'), 'superviser', 'App\Nova\Superviser')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
+            Boolean::make(__('Active'),'active')->rules('required')->default(1)->onlyOnForms(),
+            NovaSwitcher::make(__('Active'),'active')->filterable()->exceptOnForms(),
+            File::make(__('file')),
+            Textarea::make(__('note'),'note')->nullable(),
             HasMany::make('donation','donation', 'App\Nova\Donation')->nullable(),
         ];
     }
