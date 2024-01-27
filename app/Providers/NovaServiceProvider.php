@@ -28,7 +28,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             return [
                MenuSection::dashboard(Main::class)->icon('chart-bar'),
                MenuSection::resource(Donation::class)->icon('calculator'),
-               MenuSection::resource(Beneficiary::class)->icon('calculator'),
+               MenuSection::resource(Beneficiary::class)->icon('clipboard-list'),
                MenuSection::resource(Storage::class)->icon('home'),
                MenuSection::resource(User::class)->icon('user'),
             ];

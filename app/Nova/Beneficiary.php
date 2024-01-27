@@ -39,7 +39,7 @@ class Beneficiary extends Resource
      */
     public static function label()
     {
-        return __('Name Records');
+        return __('Records');
     }
 
     /**

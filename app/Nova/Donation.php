@@ -32,6 +32,45 @@ class Donation extends Resource
     public static $title = 'name';
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Expenses');
+    }
+
+    /**
+     * Get the displayable singular label of the resource.
+     *
+     * @return string
+     */
+    public static function singularLabel()
+    {
+        return __('Expense');
+    }
+
+    /**
+     * Get the text for the create resource button.
+     *
+     * @return string|null
+     */
+    public static function createButtonLabel()
+    {
+        return __('Create Expense');
+    }
+
+    /**
+     * Get the text for the update resource button.
+     *
+     * @return string|null
+     */
+    public static function updateButtonLabel()
+    {
+        return __('Update Expense');
+    }
+    /**
      * The columns that should be searched.
      *
      * @var array
@@ -62,26 +101,26 @@ class Donation extends Resource
         $availableItems = Storage::where('qty', '>', 0)->pluck('item_name', 'item_id');
 
         return [
-            ID::make()->sortable(),
+            ID::make(__('ID'),'id')->sortable(),
             BelongsTo::make(__('beneficiary'),'beneficiary','App\Nova\Beneficiary')->display(function ($donation) {
                 return __('Id:') . ' '. $donation->id . ' - ' . __('Name:'). ' ' . $donation->name . ' - ' . __('Statuses:'). ' ' . $donation->statuses . ' - ' . __('familyMembers:'). ' ' . $donation->familyMembers . ' - ' . __('Telephone 1:'). ' ' . $donation->Tel1 . ' - ' . __('City:'). ' ' . $donation->city->city_name;
             })->showCreateRelationButton()->withoutTrashed()->onlyOnForms()->searchable(),
 
             BelongsTo::make(__('beneficiary'),'beneficiary','App\Nova\Beneficiary')->onlyOnIndex(),
 
-            Number::make('amount')->canSee(function($request){
+            Number::make(__('Amount'),'amount')->canSee(function($request){
                 return $request->user()->name === 'admin';
             })->onlyOnForms(),
-            Number::make('amount')->exceptOnForms(),
-            Flexible::make('line_items','line_items')
-            ->addLayout('Simple content section', 'wysiwyg', [
-                Select::make('Items')
+            Number::make(__('Amount'),'amount')->exceptOnForms(),
+            Flexible::make(__('Items'),'line_items')
+            ->addLayout(__('section'), 'wysiwyg', [
+                Select::make(__('Items'),'items')
                 ->options($availableItems)
                 ->displayUsingLabels(),
-            Number::make('qty', 'qty'),
+            Number::make(__('qty'), 'qty'),
             ]),
 
-            Boolean::make('Approved','approved')->filterable()->canSee(function($request){
+            Boolean::make(__('Approved'),'approved')->filterable()->canSee(function($request){
                 return $request->user()->name === 'admin';
             })->filterable(),
 

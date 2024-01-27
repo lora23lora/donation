@@ -17,7 +17,7 @@
     "Password": "وشەی نهێنی",
     "Remember me": "منت لەیاد بێت",
     "Resources": "Resources",
-    "Send Password Reset Link": "Send Password Reset Link",
+    "Send Password Reset Link": "لینک بنێرە بۆ دانانەوەی وشەی نهێنی",
     "Welcome Back!": "بەخێربێیەوە",
     "Delete Resource": "سڕینەوە",
     "Delete": "سڕینەوە",
@@ -423,7 +423,7 @@
     "The file was deleted!": "The file was deleted!",
     "This file field is read-only.": "This file field is read-only.",
     "No additional information...": "No additional information...",
-    "ID": "ID",
+    "ID": "ئایدی تایبەت",
     "7 Days": "7 رۆژ",
     "365 Days": "365 رۆژ",
     "30 Days": "30 رۆژ",
@@ -497,5 +497,19 @@
     "Price": "نرخ",
     "Total": "کۆی گشتی",
     "Date": "بەروار",
-    "Note": "تێبینی"
+    "Note": "تێبینی",
+    "Create Expense": " دروستکردنی بڕی خەرجکراو",
+    "Update Expense": " گۆڕینی بڕی خەرجکراو ",
+    "Expense": "بڕی خەرجکراو",
+    "Expenses": " بڕی خەرجکراوەکان ",
+    "Amount": " بڕ",
+    "beneficiary": " ناو",
+    "Approved": "ڕێگەپێدان",
+    "qty": "بڕ",
+    "section": "بڕگە",
+    "Add layout": "زیادکردنی بابەت"
+
+
+
+
 }

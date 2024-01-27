@@ -35,7 +35,7 @@ class Storage extends Resource
         'item_id', 'item_name'
     ];
 
-/**
+    /**
      * Get the displayable label of the resource.
      *
      * @return string
@@ -119,25 +119,4 @@ class Storage extends Resource
         return [];
     }
 
-    /**
-     * Get the lenses available for the resource.
-     *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return array
-     */
-    public function lenses(NovaRequest $request)
-    {
-        return [];
-    }
-
-    /**
-     * Get the actions available for the resource.
-     *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return array
-     */
-    public function actions(NovaRequest $request)
-    {
-        return [];
-    }
 }
