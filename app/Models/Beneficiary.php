@@ -25,6 +25,10 @@ class Beneficiary extends Model
         'file'
     ];
 
+    protected $casts = [
+        'status' => 'array',
+    ];
+
     public function superviser()
     {
         return $this->belongsTo(Superviser::class, 'superviser_id','superviser_id');

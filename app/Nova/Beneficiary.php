@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Models\Status;
 use App\Nova\Actions\BeneficiaryPdf;
 use App\Nova\Actions\ImportBeneficiaries;
 use Laravel\Nova\Fields\ID;
@@ -10,6 +11,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\MultiSelect;
 use Trin4ik\NovaSwitcher\NovaSwitcher;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
@@ -77,11 +79,13 @@ class Beneficiary extends Resource
      */
     public function fields(NovaRequest $request)
     {
+        $availableItems = Status::all()->pluck('name', 'status_id');
+
         return [
             ID::make()->sortable(),
             Text::make(__('Name'),'name')->rules('required', 'string', 'max:255'),
             Text::make(__('Address'),'address')->hideFromIndex(),
-            Text::make(__('Status'),'statuses'),
+            MultiSelect::make(__('Status'),'status')->options($availableItems)->filterable(),
             BelongsTo::make(__('city'), 'city', 'App\Nova\City')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
             Text::make(__('Birthdate'),'birthdate'),
             Number::make(__('Telephone 1'),'Tel1'),
