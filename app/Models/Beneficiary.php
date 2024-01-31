@@ -16,7 +16,7 @@ class Beneficiary extends Model
         'Tel1',
         'Tel2',
         'birthdate',
-        'statuses',
+        'status',
         'superviser_id',
         'city_id',
         'user_id',
@@ -33,6 +33,7 @@ class Beneficiary extends Model
     {
         return $this->belongsTo(Superviser::class, 'superviser_id','superviser_id');
     }
+ 
     public function city()
     {
         return $this->belongsTo(City::class, 'city_id','city_id');

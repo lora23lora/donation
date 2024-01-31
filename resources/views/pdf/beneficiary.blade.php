@@ -57,7 +57,6 @@
                 <th>City</th>
                 <th>Birthdate</th>
                 <th>Status</th>
-                <th>Amount</th>
                 <th>Tel1</th>
                 <th>Tel2</th>
                 <th>Supervisor</th>
@@ -69,6 +68,7 @@
             @foreach ($models as $model)
                 @php
                     $rowColor = $loop->iteration % 2 == 0 ? '#ffffff' : '#ecf5fb';
+                    $statusArray = is_array($model->status) ? $model->status : json_decode($model->status);
                 @endphp
                 <tr style="background-color: {{ $rowColor }}">
                     <td>{{ $model->id }}</td>
@@ -77,7 +77,13 @@
                     <td>{{ $model->familyMembers }}</td>
                     <td>{{ $model->city->city_name }}</td>
                     <td>{{ $model->birthdate }}</td>
-                    <td>{{ $model->statuses }}</td>
+                    <td>
+                        @if(is_array($statusArray))
+                            {{ implode(', ', \App\Models\Status::whereIn('status_id', $statusArray)->pluck('name')->toArray()) }}
+                        @else
+                            {{ \App\Models\Status::find($statusArray)->name }}
+                        @endif
+                    </td>
                     <td>{{ $model->Tel1 }}</td>
                     <td>{{ $model->Tel2 }}</td>
                     <td>{{ $model->superviser->name }}</td>
