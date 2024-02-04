@@ -75,7 +75,7 @@
                     <td>{{ $model->name }}</td>
                     <td>{{ $model->address }}</td>
                     <td>{{ $model->familyMembers }}</td>
-                    <td>{{ $model->city->city_name }}</td>
+                    <td>{{ $model->city->city_name ?? '' }}</td>
                     <td>{{ $model->birthdate }}</td>
                     <td>
                         @if(is_array($statusArray))
@@ -86,7 +86,7 @@
                     </td>
                     <td>{{ $model->Tel1 }}</td>
                     <td>{{ $model->Tel2 }}</td>
-                    <td>{{ $model->superviser->name }}</td>
+                    <td>{{ $model->superviser->name ?? '' }}</td>
                     <td>{{ $model->date }}</td>
                     <td>{{ $model->note }}</td>
                 </tr>

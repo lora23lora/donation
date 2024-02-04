@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\Models\Status;
 use App\Nova\Actions\BeneficiaryPdf;
+use App\Nova\Actions\ExportCsv;
 use App\Nova\Actions\ImportBeneficiaries;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Actions\ExportAsCsv;
@@ -120,24 +121,10 @@ class Beneficiary extends Resource
     public function actions(NovaRequest $request)
     {
         return [
-            ExportAsCsv::make()->nameable()->withFormat(function ($model){
-                return [
-                    'id' => $model->getKey(),
-                    'name' => $model->name,
-                    'city' => $model->city->city_name,
-                    'address' => $model->address,
-                    'birthdate' => $model->birthdate,
-                    'familyMembers' => $model->familyMembers,
-                    'statuses' => $model->statuses,
-                    'superviser' => $model->superviser->name,
-                    'Tel1' => $model->Tel1,
-                    'Tel2' => $model->Tel2,
-                    'active' => $model->active,
-                    'note' => $model->note,
-                ];
-            }),
+        new ExportCsv,
             new BeneficiaryPdf,
             new ImportBeneficiaries
         ];
     }
+
 }

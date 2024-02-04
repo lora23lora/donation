@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Models\Beneficiary;
-use App\Rules\SelectRule;
 use Illuminate\Validation\ValidationException;
 
 class BeneficiaryObserver
@@ -17,7 +16,7 @@ class BeneficiaryObserver
 
         if (!is_array($statusArray) || count($statusArray) === 0) {
             throw ValidationException::withMessages([
-                'status' => 'at least one status is required',
+                'status' => __('at least one status is required'),
             ]);
         }
     }

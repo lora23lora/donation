@@ -15,6 +15,7 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "maatwebsite/excel": "^3.1",
+        "maatwebsite/laravel-nova-excel": "^1.3",
         "mpdf/mpdf": "^8.2",
         "trin4ik/nova-switcher": "^0.4.0",
         "whitecube/nova-flexible-content": "*"
