@@ -17,20 +17,20 @@ class ExportCsv extends DownloadExcel implements WithMapping, WithHeadings
      */
     public function headings(): array
     {
-          return [
-                    'id',
-                    'name',
-                    'city',
-                    'address',
-                    'birthdate',
-                    'familyMembers',
-                    'status',
-                    'superviser',
-                    'Tel1',
-                    'Tel2',
-                    'active',
-                    'note',
-                ];
+    return [
+        'id',
+        'name',
+        'city',
+        'address',
+        'birthdate',
+        'familyMembers',
+        'status',
+        'superviser',
+        'Tel1',
+        'Tel2',
+        'active',
+        'note',
+        ];
     }
 
     /**
