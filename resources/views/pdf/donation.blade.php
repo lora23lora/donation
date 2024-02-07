@@ -70,7 +70,7 @@
             @foreach ($models as $model)
                 @php
                     $rowColor = $loop->iteration % 2 == 0 ? '#ffffff' : '#ecf5fb';
-                    // $itemId = $model->line_items[0]['attributes']['items'];
+                    $statusArray = is_array($model->beneficiary->status) ? $model->beneficiary->status : json_decode($model->beneficiary->status);
                 @endphp
                 <tr style="background-color: {{ $rowColor }}">
                     <td>{{ $model->id }}</td>
@@ -79,23 +79,19 @@
                     <td>{{ $model->beneficiary->familyMembers }}</td>
                     <td>{{ $model->beneficiary->city->city_name }}</td>
                     <td>{{ $model->beneficiary->birthdate }}</td>
-                    <td>{{ $model->beneficiary->statuses }}</td>
-                    <td>{{ $model->amount }}</td>
+                    <td>
+                        @if(is_array($model->beneficiary->status))
+                            {{ implode(', ', \App\Models\Status::whereIn('status_id', $model->beneficiary->status)->pluck('name')->toArray()) }}
+                        @else
+                            {{ \App\Models\Status::find($model->beneficiary->status)->name }}
+                        @endif
+                    </td>
+                     <td>{{ $model->amount }}</td>
                     <td>{{ $model->beneficiary->Tel1 }}</td>
                     <td>{{ $model->beneficiary->Tel2 }}</td>
                     <td>{{ $model->beneficiary->superviser->name }}</td>
                     <td>{{ $model->date }}</td>
                     <td>{{ $model->note }}</td>
-                    {{-- <td>{{ $itemId }}</td> --}}
-                    {{--
-                         [
-                        {
-                        "layout":"wysiwyg",
-                        "key":"cLTQ44yrbmaz7K6C",
-                        "attributes":{"items":null,"qty":null}
-                         }
-                        ]
-                         --}}
                 </tr>
             @endforeach
         </tbody>

@@ -63,13 +63,23 @@ class Beneficiary extends Resource
     {
         return __('Create Record');
     }
+
+    /**
+     * Get the text for the update resource button.
+     *
+     * @return string|null
+     */
+    public static function updateButtonLabel()
+    {
+        return __('Update Record');
+    }
     /**
      * The columns that should be searched.
      *
      * @var array
      */
     public static $search = [
-        'id', 'name', 'birthdate', 'address','Tel1', 'Tel2', 'familyMembers', 'statuses'
+        'id', 'name', 'birthdate', 'address','Tel1', 'Tel2', 'familyMembers', 'status'
     ];
 
     /**
@@ -121,7 +131,7 @@ class Beneficiary extends Resource
     public function actions(NovaRequest $request)
     {
         return [
-        new ExportCsv,
+            new ExportCsv,
             new BeneficiaryPdf,
             new ImportBeneficiaries
         ];

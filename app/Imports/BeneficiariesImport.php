@@ -16,15 +16,24 @@ class BeneficiariesImport implements ToModel, WithStartRow
     use Importable;
 
     /**
+     * Get the displayable name of the filter.
+     *
+     * @return string
+     */
+    public function name()
+    {
+        return __('Import Record');
+    }
+
+    /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-
     public function model(array $row)
     {
         $cityName = $row['1'];
-        $statusNames = explode(', ', $row['5']); // Assuming the status values are separated by commas
+        $statusNames = explode(', ', $row['5']);
         $superviserName = $row['6'];
 
         $city = City::where('city_name', $cityName)->first();
@@ -32,13 +41,11 @@ class BeneficiariesImport implements ToModel, WithStartRow
 
         $statusIds = [];
 
-        // Loop through each status name and find its corresponding ID
         foreach ($statusNames as $statusName) {
             $status = Status::where('name', $statusName)->first();
 
-            // If status not found, you might want to handle this case (e.g., log a warning)
             if ($status) {
-                $statusIds[] = (string) $status->status_id; // Convert ID to string
+                $statusIds[] = (string) $status->status_id;
             }
         }
 
@@ -54,7 +61,7 @@ class BeneficiariesImport implements ToModel, WithStartRow
         ]);
 
         $beneficiary->city_id = $city ? $city->city_id : null;
-        $beneficiary->status = $statusIds; // Store the array of status IDs as strings
+        $beneficiary->status = $statusIds;
 
         $beneficiary->superviser_id = $superviser ? $superviser->superviser_id : null;
 

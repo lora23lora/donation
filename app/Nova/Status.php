@@ -23,6 +23,25 @@ class Status extends Resource
      */
     public static $title = 'name';
 
+      /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Statuses');
+    }
+
+    /**
+     * Get the displayable singular label of the resource.
+     *
+     * @return string
+     */
+    public static function singularLabel()
+    {
+        return __('Status');
+    }
     /**
      * The columns that should be searched.
      *
@@ -31,6 +50,7 @@ class Status extends Resource
     public static $search = [
         'status_id'
     ];
+
 
     /**
      * Get the fields displayed by the resource.
@@ -41,8 +61,8 @@ class Status extends Resource
     public function fields(NovaRequest $request)
     {
         return [
-            ID::make('status_id','status_id')->sortable(),
-            Text::make('Name', 'name')
+            ID::make(__('status_id'),'status_id')->sortable(),
+            Text::make(__('Name'), 'name')
         ];
     }
 

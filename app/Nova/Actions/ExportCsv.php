@@ -2,10 +2,6 @@
 
 namespace App\Nova\Actions;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
@@ -18,7 +14,6 @@ class ExportCsv extends DownloadExcel implements WithMapping, WithHeadings
     public function headings(): array
     {
     return [
-        'id',
         'name',
         'city',
         'address',
@@ -41,7 +36,6 @@ class ExportCsv extends DownloadExcel implements WithMapping, WithHeadings
     public function map($model): array
     {
         return [
-           $model->getKey(),
             $model->name,
             $model->city->city_name,
             $model->address,

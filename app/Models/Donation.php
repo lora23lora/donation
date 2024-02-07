@@ -24,11 +24,6 @@ class Donation extends Model
         'line_items' => 'array',
 
     ];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id','id');
-    }
     public function beneficiary()
     {
         return $this->belongsTo(Beneficiary::class, 'beneficiary_id','id');

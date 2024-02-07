@@ -17,7 +17,20 @@ use Maatwebsite\Excel\Facades\Excel;
 class ImportBeneficiaries extends Action
 {
     use InteractsWithQueue, Queueable;
-public $standalone = true;
+
+    
+    /**
+     * Get the displayable name of the filter.
+     *
+     * @return string
+     */
+    public function name()
+    {
+        return __('Import Record');
+    }
+
+
+    public $standalone = true;
     /**
      * Perform the action on the given models.
      *

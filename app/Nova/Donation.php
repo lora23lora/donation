@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Models\Storage;
+use App\Nova\Actions\ExportDonationToCsv;
 use App\Nova\Actions\ExportToPdf;
 use App\Nova\Lenses\CityWithMostBeneficiary;
 use App\Nova\Lenses\TotalAmount;
@@ -102,8 +103,8 @@ class Donation extends Resource
 
         return [
             ID::make(__('ID'),'id')->sortable(),
-            BelongsTo::make(__('beneficiary'),'beneficiary','App\Nova\Beneficiary')->display(function ($donation) {
-                return __('Id:') . ' '. $donation->id . ' - ' . __('Name:'). ' ' . $donation->name . ' - ' . __('Statuses:'). ' ' . $donation->statuses . ' - ' . __('familyMembers:'). ' ' . $donation->familyMembers . ' - ' . __('Telephone 1:'). ' ' . $donation->Tel1 . ' - ' . __('City:'). ' ' . $donation->city->city_name;
+            BelongsTo::make(__('beneficiary'),'beneficiary','App\Nova\Beneficiary')->display(function ($beneficiary) {
+                return __('Id:') . ' '. $beneficiary->id . ' - ' . __('Name:'). ' ' . $beneficiary->name  . ' - ' . __('familyMembers:'). ' ' . $beneficiary->familyMembers . ' - ' . __('Telephone 1:'). ' ' . $beneficiary->Tel1;
             })->showCreateRelationButton()->withoutTrashed()->onlyOnForms()->searchable(),
 
             BelongsTo::make(__('beneficiary'),'beneficiary','App\Nova\Beneficiary')->onlyOnIndex(),
@@ -149,25 +150,8 @@ class Donation extends Resource
     public function actions(NovaRequest $request)
     {
         return [
-            ExportAsCsv::make()->nameable()->withFormat(function ($model){
-                return [
-                    'id' => $model->getKey(),
-                    'name' => $model->beneficiary->name,
-                    'city' => $model->beneficiary->city->city_name,
-                    'address' => $model->beneficiary->address,
-                    'birthdate' => $model->beneficiary->birthdate,
-                    'familyMembers' => $model->beneficiary->familyMembers,
-                    'statuses' => $model->beneficiary->statuses,
-                    'superviser' => $model->beneficiary->superviser->name,
-                    'Tel1' => $model->beneficiary->Tel1,
-                    'Tel2' => $model->beneficiary->Tel2,
-                    'active' => $model->beneficiary->active,
-                    'amount' => $model->amount,
-                    'note' => $model->beneficiary->note,
-                    'item' => $model->line_items,
-                ];
-            }),
             new ExportToPdf,
+            new ExportDonationToCsv
 
         ];
     }

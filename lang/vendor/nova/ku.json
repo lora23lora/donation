@@ -1,6 +1,6 @@
 {
     "Actions": "Actions",
-    "Details": "Details",
+    "Details": "زانیارییەکان",
     "If you did not request a password reset, no further action is required.": "If you did not request a password reset, no further action is required.",
     "Reset Password": "Reset Password",
     "Sorry! You are not authorized to perform this action.": "Sorry! You are not authorized to perform this action.",
@@ -407,7 +407,7 @@
     "Original": "Original",
     "This resource no longer exists": "This resource no longer exists",
     "The resource was prevented from being saved!": "The resource was prevented from being saved!",
-    ":resource Details": ":resource Details",
+    ":resource Details": ":resource زانیارییەکانی",
     "There are no available options for this resource.": "There are no available options for this resource.",
     "All resources loaded.": "All resources loaded.",
     "Load :perPage More": "Load :perPage More",
@@ -434,9 +434,9 @@
     "Quarter To Date": "Quarter To Date",
     "Year To Date": "Year To Date",
     "Customize": "Customize",
-    "Update :resource: :title": "Update :resource: :title",
+    "Update :resource: :title": "گۆڕینی :resource: :title",
     "Update attached :resource: :title": "Update attached :resource: :title",
-    ":resource Details: :title": ":resource Details: :title",
+    ":resource Details: :title": "زانیاری :resource: :title ",
     "The HasOne relationship has already been filled.": "The HasOne relationship has already been filled.",
     "An error occurred while uploading the file.": "An error occurred while uploading the file.",
     "An error occurred while uploading the file: :error": "An error occurred while uploading the file: :error",
@@ -472,7 +472,7 @@
     "Remove": "Remove",
     "Uploading": "Uploading",
     "The image could not be loaded.": "The image could not be loaded.",
-    "Name Records": "لیستی ناوەکان",
+    "Records": "لیستی ناوەکان",
     "Record": " ڕێکۆرد",
     "Create Record": " دروستکردنی ڕێکۆرد",
     "Name": " ناو ",
@@ -507,7 +507,12 @@
     "Approved": "ڕێگەپێدان",
     "qty": "بڕ",
     "section": "بڕگە",
-    "Add layout": "زیادکردنی بابەت"
+    "Add layout": "زیادکردنی بابەت",
+    "Import Record": "داگرتنی فایل",
+    "Update Record": "گۆڕینی ڕیکۆرد ",
+    "Statuses": "حاڵەتەکان ",
+    "Name: ": "ناو ",
+    "| City: ": "شار "
 
 
 

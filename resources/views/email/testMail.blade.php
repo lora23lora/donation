@@ -10,7 +10,7 @@
 <h3>New Beneficiary has been added</h3>
 <div>
 Name: <p>{{ $donation->beneficiary->name }}</p>
-Status: <p>{{ $donation->beneficiary->statuses }}</p>
+City: <p>{{ $donation->beneficiary->city->city_name }}</p>
 City: <p>{{ $donation->beneficiary->city->city_name }}</p>
 Superviser: <p>{{ $donation->beneficiary->superviser->name }}</p>
 </div>
