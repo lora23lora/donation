@@ -92,6 +92,17 @@
                     <td>{{ $model->beneficiary->superviser->name }}</td>
                     <td>{{ $model->date }}</td>
                     <td>{{ $model->note }}</td>
+                    <td>
+                        @foreach($model->line_items as $line_item)
+                            @php
+                                $storageItem = \App\Models\Storage::find($line_item['attributes']['items']);
+                            @endphp
+                            @if($storageItem)
+                                {{ $storageItem->item_name }} Qty: {{ $line_item['attributes']['qty'] }},<br>
+                            @endif
+                        @endforeach
+                    </td>
+
                 </tr>
             @endforeach
         </tbody>
