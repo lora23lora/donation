@@ -2,6 +2,7 @@
 
 namespace App\Nova\Actions;
 
+use App\Models\Storage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -31,6 +32,7 @@ class ExportDonationToCsv extends DownloadExcel implements WithMapping, WithHead
         'superviser',
         'Tel1',
         'Tel2',
+        'items',
         'active',
         'note',
         ];
@@ -43,6 +45,12 @@ class ExportDonationToCsv extends DownloadExcel implements WithMapping, WithHead
      */
     public function map($model): array
     {
+        $lineItems = [];
+        foreach ($model->line_items as $line_item) {
+            $storageItem = Storage::find($line_item['attributes']['items']);
+            $itemName = $storageItem ? $storageItem->item_name : 'Unknown';
+            $lineItems[] = " $itemName - Qty: {$line_item['attributes']['qty']},";
+        }
         return [
             $model->beneficiary->name,
             $model->beneficiary->city->city_name,
@@ -54,6 +62,7 @@ class ExportDonationToCsv extends DownloadExcel implements WithMapping, WithHead
             $model->beneficiary->superviser->name,
             $model->beneficiary->Tel1,
             $model->beneficiary->Tel2,
+            implode("\n", $lineItems), // Join line items into a string
             $model->beneficiary->active,
             $model->note,
         ];
