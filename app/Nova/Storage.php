@@ -86,7 +86,7 @@ class Storage extends Resource
         return [
             ID::make(__('item_id'),'item_id')->sortable(),
             Text::make(__('Item Name'),'item_name'),
-            Number::make(__('Quantitiy'),'qty'),
+            Number::make(__('Quantitiy'),'qty')->exceptOnForms(),
             Number::make(__('Price'),'price'),
             Number::make(__('Total'))->exceptOnForms()->displayUsing(function () {
                 return $this->qty * $this->price;

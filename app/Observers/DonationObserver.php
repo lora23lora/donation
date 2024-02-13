@@ -46,9 +46,9 @@ class DonationObserver
             $storageItem = Storage::find($itemId);
 
             if ($storageItem) {
-                $qtyToSubtract = $subtract ? $qty : -$qty;
+                $qtyToSubtract = $subtract ? $qty : +$qty;
 
-                $storageItem->qty -= $qtyToSubtract;
+                $storageItem->qty += $qtyToSubtract;
                 $storageItem->save();
             }
         }
