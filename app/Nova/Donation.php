@@ -149,10 +149,15 @@ class Donation extends Resource
      */
     public function actions(NovaRequest $request)
     {
+        // Check if the current URL contains 'lens'
+        if (strpos(url()->current(), 'lens') !== false) {
+            return []; // Return an empty array to remove actions on the lens
+        }
+
+        // Return actions for the Donation resource
         return [
             new ExportToPdf,
             new ExportDonationToCsv
-
         ];
     }
 
