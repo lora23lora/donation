@@ -19,10 +19,11 @@ return new class extends Migration
             $table->integer('familyMembers')->nullable();
             $table->string('Tel1',100)->nullable();
             $table->string('Tel2',100)->nullable();
-            $table->string('statuses')->nullable();
+            $table->string('status')->nullable();
             $table->tinyInteger('superviser_id')->nullable();
             $table->tinyInteger('city_id')->nullable();
             $table->tinyInteger('user_id')->nullable();
+            $table->tinyInteger('gender')->nullable();
             $table->boolean('active')->default(1);
             $table->string('file',100)->nullable();
             $table->text('note')->nullable();

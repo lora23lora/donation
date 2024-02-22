@@ -15,6 +15,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\MultiSelect;
 use Trin4ik\NovaSwitcher\NovaSwitcher;
 use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -27,6 +28,15 @@ class Beneficiary extends Resource
      * @var class-string<\App\Models\Beneficiary>
      */
     public static $model = \App\Models\Beneficiary::class;
+
+    /**
+     * The click action to use when clicking on the resource in the table.
+     *
+     * Can be one of: 'detail' (default), 'edit', 'select', 'preview', or 'ignore'.
+     *
+     * @var string
+     */
+    public static $clickAction = 'edit';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -99,6 +109,10 @@ class Beneficiary extends Resource
             MultiSelect::make(__('Status'),'status')->options($availableItems)->filterable(),
             BelongsTo::make(__('city'), 'city', 'App\Nova\City')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
             Text::make(__('Birthdate'),'birthdate'),
+            Select::make('gender','gender')->options([
+                '0' => 'male',
+                '1' => 'female',
+            ])->filterable(),
             Number::make(__('Telephone 1'),'Tel1'),
             Number::make(__('Telephone 2'),'Tel2')->hideFromIndex(),
             Number::make(__('Family Members'),'familyMembers'),
@@ -108,6 +122,7 @@ class Beneficiary extends Resource
             File::make(__('file')),
             Textarea::make(__('note'),'note')->nullable(),
             HasMany::make('donation','donation', 'App\Nova\Donation')->nullable(),
+
         ];
     }
 

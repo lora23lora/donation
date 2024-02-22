@@ -31,42 +31,42 @@ class BeneficiariesImport implements ToModel, WithStartRow
     * @return \Illuminate\Database\Eloquent\Model|null
     */
     public function model(array $row)
-    {
-        $cityName = $row['1'];
-        $statusNames = explode(', ', $row['5']);
-        $superviserName = $row['6'];
+{
+    $cityName = $row['1'];
+    $statusNames = explode(' - ', $row['5']); // Adjust the delimiter as per your CSV format
+    $superviserName = $row['6'];
 
-        $city = City::where('city_name', $cityName)->first();
-        $superviser = Superviser::where('name', $superviserName)->first();
+    $city = City::where('city_name', $cityName)->first();
+    $superviser = Superviser::where('name', $superviserName)->first();
 
-        $statusIds = [];
+    $statusIds = [];
 
-        foreach ($statusNames as $statusName) {
-            $status = Status::where('name', $statusName)->first();
+    foreach ($statusNames as $statusName) {
+        $status = Status::where('name', $statusName)->first();
 
-            if ($status) {
-                $statusIds[] = (string) $status->status_id;
-            }
+        if ($status) {
+            $statusIds[] = (string) $status->status_id;
         }
-
-        $beneficiary = new Beneficiary([
-            'name' => $row['0'],
-            'address' => $row['2'],
-            'birthdate' => $row['3'],
-            'familyMembers' => $row['4'],
-            'Tel1' => $row['7'],
-            'Tel2' => $row['8'],
-            'active' => $row['9'],
-            'note' => $row['10'],
-        ]);
-
-        $beneficiary->city_id = $city ? $city->city_id : null;
-        $beneficiary->status = $statusIds;
-
-        $beneficiary->superviser_id = $superviser ? $superviser->superviser_id : null;
-
-        return $beneficiary;
     }
+
+    $beneficiary = new Beneficiary([
+        'name' => $row['0'],
+        'address' => $row['2'],
+        'birthdate' => $row['3'],
+        'familyMembers' => $row['4'],
+        'Tel1' => $row['7'],
+        'Tel2' => $row['8'],
+        'active' => $row['9'],
+        'note' => $row['10'],
+    ]);
+
+    $beneficiary->city_id = $city ? $city->city_id : null;
+    $beneficiary->status = $statusIds;
+
+    $beneficiary->superviser_id = $superviser ? $superviser->superviser_id : null;
+
+    return $beneficiary;
+}
 
 
 
