@@ -3,6 +3,7 @@
 namespace App\Nova\Metrics;
 
 use App\Models\Donation;
+use App\Models\Beneficiary;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Metrics\Value;
 use Laravel\Nova\Nova;
@@ -27,7 +28,7 @@ class NewBeneficiary extends Value
      */
     public function calculate(NovaRequest $request)
     {
-        return $this->count($request, Donation::class);
+        return $this->count($request, Beneficiary::class);
     }
 
     /**

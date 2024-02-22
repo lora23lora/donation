@@ -57,7 +57,8 @@ class BeneficiariesImport implements ToModel, WithStartRow
         'Tel1' => $row['7'],
         'Tel2' => $row['8'],
         'active' => $row['9'],
-        'note' => $row['10'],
+        'gender' => $row['10'],
+        'note' => $row['11'],
     ]);
 
     $beneficiary->city_id = $city ? $city->city_id : null;
