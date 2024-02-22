@@ -103,9 +103,7 @@ class Donation extends Resource
 
         return [
             ID::make(__('ID'),'id')->sortable(),
-            BelongsTo::make(__('beneficiary'),'beneficiary','App\Nova\Beneficiary')->display(function ($beneficiary) {
-                return __('Id:') . ' '. $beneficiary->id . ' - ' . __('Name:'). ' ' . $beneficiary->name  . ' - ' . __('familyMembers:'). ' ' . $beneficiary->familyMembers . ' - ' . __('Telephone 1:'). ' ' . $beneficiary->Tel1;
-            })->showCreateRelationButton()->withoutTrashed()->onlyOnForms()->searchable(),
+            BelongsTo::make(__('beneficiary'),'beneficiary','App\Nova\Beneficiary')->showCreateRelationButton()->withoutTrashed()->onlyOnForms()->searchable(),
 
             BelongsTo::make(__('beneficiary'),'beneficiary','App\Nova\Beneficiary')->onlyOnIndex(),
 

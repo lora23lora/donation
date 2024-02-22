@@ -9,6 +9,16 @@ use Laravel\Nova\Nova;
 
 class NewBeneficiary extends Value
 {
+
+    /**
+     * Get the displayable name of the filter.
+     *
+     * @return string
+     */
+    public function name()
+    {
+        return __("New Record");
+    }
     /**
      * Calculate the value of the metric.
      *

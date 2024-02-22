@@ -109,7 +109,7 @@ class Beneficiary extends Resource
             MultiSelect::make(__('Status'),'status')->options($availableItems)->filterable(),
             BelongsTo::make(__('city'), 'city', 'App\Nova\City')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
             Text::make(__('Birthdate'),'birthdate'),
-            Select::make('gender','gender')->options([
+            Select::make(__('gender'),'gender')->options([
                 '0' => 'male',
                 '1' => 'female',
             ])->filterable(),

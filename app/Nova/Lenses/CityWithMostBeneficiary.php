@@ -22,6 +22,16 @@ class CityWithMostBeneficiary extends Lens
     public static $search = [];
 
     /**
+     * Get the displayable name of the filter.
+     *
+     * @return string
+     */
+    public function name()
+    {
+        return __("City With Most Beneficiary Expense");
+    }
+
+    /**
      * Get the query builder / paginator for the lens.
      *
      * @param  \Laravel\Nova\Http\Requests\LensRequest  $request
@@ -50,9 +60,9 @@ class CityWithMostBeneficiary extends Lens
     public function fields(NovaRequest $request)
     {
         return [
-            ID::make('cityId', 'cityId')->sortable(),
-            Text::make('City', 'city_name'),
-            Number::make('Beneficiary Total Amount', 'total_amount')->displayUsing(function ($value) {
+            ID::make(__('cityId'), 'cityId')->sortable(),
+            Text::make(__('City'), 'city_name'),
+            Number::make(__('Total Amount'), 'total_amount')->displayUsing(function ($value) {
                 return 'IQD'. ' ' . number_format($value, 2);
             }),
         ];

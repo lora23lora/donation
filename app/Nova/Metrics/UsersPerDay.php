@@ -11,12 +11,15 @@ class UsersPerDay extends Trend
 {
 
 
-
+    /**
+     * Get the displayable name of the filter.
+     *
+     * @return string
+     */
     public function name()
     {
-        return 'Amount Per Beneficiary';
+        return __("Total Expense");
     }
-
 
 
     /**
@@ -27,7 +30,7 @@ class UsersPerDay extends Trend
      */
     public function calculate(NovaRequest $request)
     {
-        return $this->sumByDays($request, Donation::class,'amount');
+        return $this->sumByDays($request, Donation::class,'amount')->showSumValue();
 
     }
 

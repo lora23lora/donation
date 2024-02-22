@@ -10,6 +10,16 @@ use Laravel\Nova\Metrics\Partition;
 
 class CityMetric extends Partition
 {
+
+    /**
+     * Get the displayable name of the filter.
+     *
+     * @return string
+     */
+    public function name()
+    {
+        return __("City Metric");
+    }
     /**
      * Calculate the value of the metric.
      *

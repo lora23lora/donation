@@ -22,6 +22,15 @@ class TotalAmount extends Lens
     public static $search = [];
 
     /**
+     * Get the displayable name of the filter.
+     *
+     * @return string
+     */
+    public function name()
+    {
+        return __("Record's Total Expense");
+    }
+    /**
      * Get the query builder / paginator for the lens.
      *
      * @param  \Laravel\Nova\Http\Requests\LensRequest  $request
@@ -58,16 +67,16 @@ class TotalAmount extends Lens
     public function fields(NovaRequest $request)
     {
         return [
-            ID::make('beneficiaries_id','beneficiaries_id'),
-            Text::make(__('name'),'name')->onlyOnIndex(),
+            ID::make(__('beneficiaries_id'),'beneficiaries_id'),
+            Text::make(__('Name'),'name')->onlyOnIndex(),
 
             // Text::make('City', 'city', 'App\Nova\City'),
 
-            Number::make('Total', 'total', function ($value) {
+            Number::make(__('Total'), 'total', function ($value) {
                 return '$'.number_format($value, 2);
             }),
 
-            Number::make('Occurrences','Occurrences'),
+            Number::make(__('Occurrences'),'Occurrences'),
         ];
     }
 
