@@ -6,6 +6,7 @@ use App\Models\Status;
 use App\Nova\Actions\BeneficiaryPdf;
 use App\Nova\Actions\ExportCsv;
 use App\Nova\Actions\ImportBeneficiaries;
+use App\Nova\Filters\GenderFilter;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Actions\ExportAsCsv;
 use Laravel\Nova\Fields\BelongsTo;
@@ -110,10 +111,10 @@ class Beneficiary extends Resource
             BelongsTo::make(__('city'), 'city', 'App\Nova\City')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
             Text::make(__('Birthdate'),'birthdate')->hideFromIndex(),
             Select::make(__('gender'),'gender')->options([
-               __( 'Not Selected') => 'not selected',
-                __('Male') => 'male',
-                __('Female') => 'female',
-            ])->hideFromIndex(),
+               __( 'not selected') => 'not selected',
+                __('male') => 'male',
+                __('female') => 'female',
+            ]),
             Number::make(__('Family Members'),'familyMembers'),
             Number::make(__('Telephone 1'),'Tel1'),
             Number::make(__('Telephone 2'),'Tel2')->hideFromIndex(),
@@ -135,7 +136,9 @@ class Beneficiary extends Resource
      */
     public function filters(NovaRequest $request)
     {
-        return [];
+        return [
+            new GenderFilter
+        ];
     }
 
     /**

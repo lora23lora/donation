@@ -12,6 +12,7 @@ use Laravel\Nova\Menu\MenuSection;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Anaseqal\NovaImport\NovaImport;
+use App\Nova\City;
 use App\Nova\Status;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
@@ -33,6 +34,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                MenuSection::resource(Storage::class)->icon('home'),
                MenuSection::resource(User::class)->icon('user'),
                MenuSection::resource(Status::class)->icon('duplicate'),
+               MenuSection::resource(City::class)->icon('map'),
             ];
         });
     }
