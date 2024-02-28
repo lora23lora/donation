@@ -15,6 +15,15 @@ class GenderFilter extends Filter
     public $component = 'select-filter';
 
     /**
+     * Get the displayable name of the filter.
+     *
+     * @return string
+     */
+    public function name()
+    {
+        return __("Gender");
+    }
+    /**
      * Apply the filter to the given query.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request

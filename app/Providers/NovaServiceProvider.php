@@ -37,7 +37,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                MenuSection::resource(Storage::class)->icon('home'),
                MenuSection::resource(Status::class)->icon('duplicate'),
                MenuSection::resource(User::class)->icon('user'),
-               MenuItem::lens(Donation::class, CityWithMostBeneficiary::class),
                MenuSection::make(__('Others'), [
                 MenuItem::resource(City::class),
                 MenuItem::resource(Superviser::class),

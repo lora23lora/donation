@@ -41,7 +41,7 @@
     "Are you sure you want to restore this resource?": "Are you sure you want to restore this resource?",
     "Are you sure you want to restore the selected resources?": "Are you sure you want to restore the selected resources?",
     "Are you sure you want to remove this item?": "دڵنیایت کە ئەتەوێت بیسڕیتەوە؟",
-    "No :resource matched the given criteria.": "هیچ :resource بەم مەرجانە نەدۆزرایەوە",
+    "No :resource matched the given criteria.": "هیچ :resource نەدۆزرایەوە",
     "Failed to load :resource!": "Failed to load :resource!",
     "Another user has updated this resource since this page was loaded. Please refresh the page and try again.": "Another user has updated this resource since this page was loaded. Please refresh the page and try again.",
     "Are you sure you want to delete this file?": "Are you sure you want to delete this file?",
@@ -543,7 +543,8 @@
     "Create Superviser": "دروستکردنی سەرپەرشتیار",
     "Update Superviser": "گۆڕینی سەرپەرشتیار",
     "Telephone": "ژمارەی تەلەفۆن",
-    "Others": "ئەوانی تر "
+    "Others": "ئەوانی تر ",
+    "Gender": "ڕەگەز"
 
 
 
