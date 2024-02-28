@@ -24,6 +24,44 @@ class City extends Resource
     public static $title = 'city_name';
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Cities');
+    }
+
+    /**
+     * Get the displayable singular label of the resource.
+     *
+     * @return string
+     */
+    public static function singularLabel()
+    {
+        return __('City');
+    }
+    /**
+     * Get the text for the create resource button.
+     *
+     * @return string|null
+     */
+    public static function createButtonLabel()
+    {
+        return __('Create City');
+    }
+
+    /**
+     * Get the text for the update resource button.
+     *
+     * @return string|null
+     */
+    public static function updateButtonLabel()
+    {
+        return __('Update City');
+    }
+    /**
      * The columns that should be searched.
      *
      * @var array
@@ -41,8 +79,8 @@ class City extends Resource
     public function fields(NovaRequest $request)
     {
         return [
-            ID::make('city_id','city_id')->sortable(),
-            Text::make('City','city_name')->rules('required', 'string', 'max:255'),
+            ID::make(__('City_id'),'city_id')->sortable(),
+            Text::make(__('City Name'),'city_name')->rules('required', 'string', 'max:255'),
 
         ];
     }

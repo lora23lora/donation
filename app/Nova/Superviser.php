@@ -26,14 +26,51 @@ class Superviser extends Resource
      * @var string
      */
     public static $title = 'name';
+   /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Supervisers');
+    }
 
+    /**
+     * Get the displayable singular label of the resource.
+     *
+     * @return string
+     */
+    public static function singularLabel()
+    {
+        return __('Superviser');
+    }
+    /**
+     * Get the text for the create resource button.
+     *
+     * @return string|null
+     */
+    public static function createButtonLabel()
+    {
+        return __('Create Superviser');
+    }
+
+    /**
+     * Get the text for the update resource button.
+     *
+     * @return string|null
+     */
+    public static function updateButtonLabel()
+    {
+        return __('Update Superviser');
+    }
     /**
      * The columns that should be searched.
      *
      * @var array
      */
     public static $search = [
-        'superviser_id',
+        'superviser_id', 'name', 'address', 'birthdate', 'Telephone'
     ];
 
     /**
@@ -46,12 +83,12 @@ class Superviser extends Resource
     {
         return [
             ID::make('superviser_id','superviser_id')->sortable(),
-            Text::make('name')->rules('required', 'string', 'max:255'),
-            Text::make('address'),
-            Text::make('birthdate'),
-            Number::make('Telephone1','Tel1'),
-            Textarea::make('note','note')->nullable(),
-            File::make('file')
+            Text::make(__('Name'),'name')->rules('required', 'string', 'max:255'),
+            Text::make(__('Address'),'address'),
+            Text::make(__('Birthdate'),'birthdate'),
+            Number::make(__('Telephone'),'Tel1'),
+            Textarea::make(__('note'),'note')->nullable(),
+            File::make(__('file'))
         ];
     }
 

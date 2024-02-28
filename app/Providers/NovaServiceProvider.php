@@ -13,7 +13,10 @@ use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Anaseqal\NovaImport\NovaImport;
 use App\Nova\City;
+use App\Nova\Lenses\CityWithMostBeneficiary;
 use App\Nova\Status;
+use App\Nova\Superviser;
+use Laravel\Nova\Menu\MenuItem;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -32,9 +35,13 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                MenuSection::resource(Donation::class)->icon('calculator'),
                MenuSection::resource(Beneficiary::class)->icon('clipboard-list'),
                MenuSection::resource(Storage::class)->icon('home'),
-               MenuSection::resource(User::class)->icon('user'),
                MenuSection::resource(Status::class)->icon('duplicate'),
-               MenuSection::resource(City::class)->icon('map'),
+               MenuSection::resource(User::class)->icon('user'),
+               MenuItem::lens(Donation::class, CityWithMostBeneficiary::class),
+               MenuSection::make(__('Others'), [
+                MenuItem::resource(City::class),
+                MenuItem::resource(Superviser::class),
+            ])->icon('plus')->collapsable(),
             ];
         });
     }
