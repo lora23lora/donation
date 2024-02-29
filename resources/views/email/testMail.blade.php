@@ -11,7 +11,6 @@
 <div>
 Name: <p>{{ $donation->beneficiary->name }}</p>
 City: <p>{{ $donation->beneficiary->city->city_name }}</p>
-City: <p>{{ $donation->beneficiary->city->city_name }}</p>
 Superviser: <p>{{ $donation->beneficiary->superviser->name }}</p>
 </div>
 </body>

@@ -35,11 +35,11 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                MenuSection::resource(Donation::class)->icon('calculator'),
                MenuSection::resource(Beneficiary::class)->icon('clipboard-list'),
                MenuSection::resource(Storage::class)->icon('home'),
-               MenuSection::resource(Status::class)->icon('duplicate'),
                MenuSection::resource(User::class)->icon('user'),
                MenuSection::make(__('Others'), [
-                MenuItem::resource(City::class),
-                MenuItem::resource(Superviser::class),
+                   MenuItem::resource(City::class),
+                   MenuItem::resource(Status::class),
+                   MenuItem::resource(Superviser::class),
             ])->icon('plus')->collapsable(),
             ];
         });

@@ -117,7 +117,7 @@ class Donation extends Resource
                 ->options($availableItems)
                 ->displayUsingLabels(),
             Number::make(__('qty'), 'qty'),
-            ]),
+            ])->button('Add Item'),
 
             Boolean::make(__('Approved'),'approved')->filterable()->canSee(function($request){
                 return $request->user()->name === 'admin';

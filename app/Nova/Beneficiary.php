@@ -12,6 +12,7 @@ use Laravel\Nova\Actions\ExportAsCsv;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\File;
+use Laravel\Nova\Fields\FormData;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\MultiSelect;
 use Trin4ik\NovaSwitcher\NovaSwitcher;
@@ -30,14 +31,7 @@ class Beneficiary extends Resource
      */
     public static $model = \App\Models\Beneficiary::class;
 
-    /**
-     * The click action to use when clicking on the resource in the table.
-     *
-     * Can be one of: 'detail' (default), 'edit', 'select', 'preview', or 'ignore'.
-     *
-     * @var string
-     */
-    public static $clickAction = 'edit';
+
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -108,16 +102,36 @@ class Beneficiary extends Resource
             Text::make(__('Name'),'name')->rules('required', 'string', 'max:255'),
             Text::make(__('Address'),'address')->hideFromIndex(),
             MultiSelect::make(__('Status'),'status')->options($availableItems)->filterable(),
-            BelongsTo::make(__('city'), 'city', 'App\Nova\City')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
+            BelongsTo::make(__('city'), 'city', 'App\Nova\City')->showCreateRelationButton()->withoutTrashed()->filterable()->required(),
             Text::make(__('Birthdate'),'birthdate')->hideFromIndex(),
             Select::make(__('gender'),'gender')->options([
                __( 'not selected') => 'not selected',
                 __('male') => 'male',
                 __('female') => 'female',
-            ]),
+            ])->required(),
             Number::make(__('Family Members'),'familyMembers'),
             Number::make(__('Telephone 1'),'Tel1'),
             Number::make(__('Telephone 2'),'Tel2')->hideFromIndex(),
+            Boolean::make(__('Salary'),'salary')->default(0)->filterable(),
+
+            Text::make(__('Salary Type'),'salary_type')
+            ->hide()
+            ->rules('sometimes')
+            ->dependsOn('salary', function (Text $field, NovaRequest $request, FormData $formData) {
+                if ($formData->boolean('salary') === true) {
+                    $field->show();
+                }
+            })->hideFromIndex(),
+
+            Text::make(__('Salary Amount'),'salary_amount')
+            ->hide()
+            ->rules('sometimes')
+            ->dependsOn('salary', function (Text $field, NovaRequest $request, FormData $formData) {
+                if ($formData->boolean('salary') === true) {
+                    $field->show();
+                }
+            })->hideFromIndex(),
+
             BelongsTo::make(__('superviser'), 'superviser', 'App\Nova\Superviser')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
             Boolean::make(__('Active'),'active')->rules('required')->default(1)->onlyOnForms(),
             NovaSwitcher::make(__('Active'),'active')->filterable()->exceptOnForms(),
