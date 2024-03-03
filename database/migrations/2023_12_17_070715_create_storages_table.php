@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('storages', function (Blueprint $table) {
             $table->id('item_id');
             $table->string('item_name');
+            $table->integer('itemCategory');
             $table->integer('qty')->nullable();
             $table->integer('price')->nullable();
             $table->date('date')->nullable();

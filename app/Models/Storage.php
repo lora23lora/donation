@@ -25,4 +25,9 @@ class Storage extends Model
         'date' => 'date',
 
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(ItemCategory::class, 'id','item_category');
+    }
 }

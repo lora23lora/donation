@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
@@ -86,6 +87,7 @@ class Storage extends Resource
         return [
             ID::make(__('item_id'),'item_id')->sortable(),
             Text::make(__('Item Name'),'item_name'),
+            BelongsTo::make('Item Category','category','App\Nova\ItemCategory'),
             Number::make(__('Quantitiy'),'qty')->exceptOnForms(),
             Number::make(__('Price'),'price'),
             Number::make(__('Total'))->exceptOnForms()->displayUsing(function () {

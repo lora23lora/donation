@@ -13,6 +13,7 @@ use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Anaseqal\NovaImport\NovaImport;
 use App\Nova\City;
+use App\Nova\ItemCategory;
 use App\Nova\Lenses\CityWithMostBeneficiary;
 use App\Nova\Status;
 use App\Nova\Superviser;
@@ -40,6 +41,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                    MenuItem::resource(City::class),
                    MenuItem::resource(Status::class),
                    MenuItem::resource(Superviser::class),
+                   MenuItem::resource(ItemCategory::class),
             ])->icon('plus')->collapsable(),
             ];
         });
