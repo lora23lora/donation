@@ -37,7 +37,7 @@ class DonationObserver
     }
 
 
-    private function updateStorageFromLineItems($lineItems, $subtract)
+    private function updateStorageFromLineItems($lineItems, $Add)
     {
         foreach ($lineItems as $item) {
             $itemId = $item['attributes']['items']; // Assuming 'items' represents item_id in Storage table
@@ -46,9 +46,9 @@ class DonationObserver
             $storageItem = Storage::find($itemId);
 
             if ($storageItem) {
-                $qtyToSubtract = $subtract ? $qty : +$qty;
+                $qtyToAdd = $Add ? $qty : +$qty;
 
-                $storageItem->qty += $qtyToSubtract;
+                $storageItem->qty += $qtyToAdd;
                 $storageItem->save();
             }
         }
@@ -56,9 +56,26 @@ class DonationObserver
     /**
      * Handle the Donation "updated" event.
      */
-    public function updated(Donation $donation): void
+    public function deleted(Donation $donation): void
     {
-        //
+        $this->StorageQtySubstraction($donation->line_items, true);
+    }
+
+    private function StorageQtySubstraction($lineItems, $subtract)
+    {
+        foreach ($lineItems as $item) {
+            $itemId = $item['attributes']['items']; // Assuming 'items' represents item_id in Storage table
+            $qty = $item['attributes']['qty'];
+
+            $storageItem = Storage::find($itemId);
+
+            if ($storageItem) {
+                $qtyToSubtract = $subtract ? $qty : -$qty;
+
+                $storageItem->qty -= $qtyToSubtract;
+                $storageItem->save();
+            }
+        }
     }
 
 }

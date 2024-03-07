@@ -6,10 +6,12 @@ use App\Models\Storage;
 use App\Nova\Actions\ExportDonationToCsv;
 use App\Nova\Actions\ExportToPdf;
 use App\Nova\Lenses\CityWithMostBeneficiary;
+use App\Nova\Lenses\ExpenseReport;
 use App\Nova\Lenses\TotalAmount;
 use Laravel\Nova\Actions\ExportAsCsv;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
@@ -110,7 +112,9 @@ class Donation extends Resource
             Number::make(__('Amount'),'amount')->canSee(function($request){
                 return $request->user()->name === 'admin';
             })->onlyOnForms(),
-            Number::make(__('Amount'),'amount')->exceptOnForms(),
+            Number::make(__('Amount'),'amount')->exceptOnForms()->displayUsing(function ($value) {
+                return number_format($value, 0, '.', ',');
+            }),
             Flexible::make(__('Items'),'line_items')
             ->addLayout(__('section'), 'wysiwyg', [
                 Select::make(__('Items'),'items')
@@ -122,7 +126,7 @@ class Donation extends Resource
             Boolean::make(__('Approved'),'approved')->filterable()->canSee(function($request){
                 return $request->user()->name === 'admin';
             })->filterable(),
-
+            Date::make(__('Date'),'date')->rules('required','date')
         ];
     }
 
@@ -172,7 +176,8 @@ class Donation extends Resource
         return [
 
             new TotalAmount(),
-            new CityWithMostBeneficiary()
+            new CityWithMostBeneficiary(),
+            new ExpenseReport()
         ];
     }
 }

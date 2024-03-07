@@ -12,11 +12,15 @@ use Laravel\Nova\Menu\MenuSection;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Anaseqal\NovaImport\NovaImport;
+use App\Models\Storage as ModelsStorage;
 use App\Nova\City;
 use App\Nova\ItemCategory;
 use App\Nova\Lenses\CityWithMostBeneficiary;
+use App\Nova\Lenses\ExpenseReport;
+use App\Nova\Lenses\ItemReport;
 use App\Nova\Status;
 use App\Nova\Superviser;
+use Laravel\Nova\Menu\MenuGroup;
 use Laravel\Nova\Menu\MenuItem;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
@@ -37,6 +41,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                MenuSection::resource(Beneficiary::class)->icon('clipboard-list'),
                MenuSection::resource(Storage::class)->icon('home'),
                MenuSection::resource(User::class)->icon('user'),
+               MenuSection::lens(Storage::class, ItemReport::class)->icon('presentation-chart-line'),
                MenuSection::make(__('Others'), [
                    MenuItem::resource(City::class),
                    MenuItem::resource(Status::class),

@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Lenses\ItemReport;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Date;
@@ -88,11 +89,11 @@ class Storage extends Resource
             ID::make(__('item_id'),'item_id')->sortable(),
             Text::make(__('Item Name'),'item_name'),
             BelongsTo::make('Item Category','category','App\Nova\ItemCategory'),
-            Number::make(__('Quantitiy'),'qty')->exceptOnForms(),
+            // Number::make(__('Quantitiy'),'qty')->exceptOnForms(),
             Number::make(__('Price'),'price'),
-            Number::make(__('Total'))->exceptOnForms()->displayUsing(function () {
-                return $this->qty * $this->price;
-            }),
+            // Number::make(__('Total'))->exceptOnForms()->displayUsing(function () {
+            //     return $this->qty * $this->price;
+            // }),
             Date::make(__('Date'),'date'),
             Textarea::make(__('Note'),'note')
 
@@ -120,5 +121,17 @@ class Storage extends Resource
     {
         return [];
     }
+/**
+     * Get the lenses available for the resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @return array
+     */
+    public function lenses(NovaRequest $request)
+    {
+        return [
 
+            new ItemReport()
+        ];
+    }
 }

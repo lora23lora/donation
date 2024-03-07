@@ -28,5 +28,10 @@ class Donation extends Model
     {
         return $this->belongsTo(Beneficiary::class, 'beneficiary_id','id');
     }
+    
+    public function items()
+    {
+        return $this->hasMany(Storage::class, 'line_item');
+    }
 
 }
