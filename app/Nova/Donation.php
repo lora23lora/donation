@@ -126,7 +126,7 @@ class Donation extends Resource
             Boolean::make(__('Approved'),'approved')->filterable()->canSee(function($request){
                 return $request->user()->name === 'admin';
             })->filterable(),
-            Date::make(__('Date'),'date')->rules('required','date')
+            Date::make(__('Date'),'date')->rules('required','date')->filterable()
         ];
     }
 

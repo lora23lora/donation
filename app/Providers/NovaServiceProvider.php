@@ -20,6 +20,7 @@ use App\Nova\Lenses\ExpenseReport;
 use App\Nova\Lenses\ItemReport;
 use App\Nova\Status;
 use App\Nova\Superviser;
+use App\Nova\Zakat;
 use Laravel\Nova\Menu\MenuGroup;
 use Laravel\Nova\Menu\MenuItem;
 
@@ -38,10 +39,12 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             return [
                MenuSection::dashboard(Main::class)->icon('chart-bar'),
                MenuSection::resource(Donation::class)->icon('calculator'),
+               MenuSection::resource(Zakat::class)->icon('book-open'),
                MenuSection::resource(Beneficiary::class)->icon('clipboard-list'),
                MenuSection::resource(Storage::class)->icon('home'),
                MenuSection::resource(User::class)->icon('user'),
-               MenuSection::lens(Storage::class, ItemReport::class)->icon('presentation-chart-line'),
+               MenuSection::lens(Donation::class, ExpenseReport::class)->icon('presentation-chart-line'),
+            //    MenuSection::lens(Storage::class, ItemReport::class)->icon('presentation-chart-line'),
                MenuSection::make(__('Others'), [
                    MenuItem::resource(City::class),
                    MenuItem::resource(Status::class),

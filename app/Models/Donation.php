@@ -5,10 +5,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Whitecube\NovaFlexibleContent\Concerns\HasFlexible;
 
 class Donation extends Model
 {
-    use HasFactory;
+    use HasFactory, HasFlexible;
 
     protected $fillable = [
         'amount',
@@ -24,14 +25,15 @@ class Donation extends Model
         'line_items' => 'array',
 
     ];
+
+
+    public function getFlexibleContentAttribute()
+    {
+        return $this->flexible('line_items');
+    }
     public function beneficiary()
     {
-        return $this->belongsTo(Beneficiary::class, 'beneficiary_id','id');
-    }
-    
-    public function items()
-    {
-        return $this->hasMany(Storage::class, 'line_item');
+        return $this->belongsTo(Beneficiary::class);
     }
 
 }

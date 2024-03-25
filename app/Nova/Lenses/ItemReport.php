@@ -2,6 +2,7 @@
 
 namespace App\Nova\Lenses;
 
+use App\Nova\Filters\DonationDateFilter;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
@@ -55,7 +56,9 @@ class ItemReport extends Lens
      */
     public function filters(NovaRequest $request)
     {
-        return [];
+        return [
+            new DonationDateFilter
+        ];
     }
 
     /**
