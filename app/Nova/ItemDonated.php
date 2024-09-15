@@ -2,26 +2,29 @@
 
 namespace App\Nova;
 
+use App\Nova\Lenses\DonationStorageLens;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class ItemCategory extends Resource
+class ItemDonated extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\ItemCategory>
+     * @var class-string<\App\Models\Storage_Donation>
      */
-    public static $model = \App\Models\ItemCategory::class;
+    public static $model = \App\Models\Storage_Donation::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'category_name';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -29,23 +32,9 @@ class ItemCategory extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'category_name'
+        'id',
     ];
 
-    public static function label()
-    {
-        return __('Item Categories');
-    }
-
-    /**
-     * Get the displayable singular label of the resource.
-     *
-     * @return string
-     */
-    public static function singularLabel()
-    {
-        return __('Item Category');
-    }
     /**
      * Get the fields displayed by the resource.
      *
@@ -56,7 +45,11 @@ class ItemCategory extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Category Name','category_name')->required()
+            BelongsTo::make(__('Donation'),'donation','App\Nova\Donation'),
+            BelongsTo::make(__('Storage'),'storage','App\Nova\Storage'),
+            Date::make('Date','date'),
+            Number::make('Price','price'),
+            Number::make('Amount','amount'),
         ];
     }
 
@@ -90,7 +83,9 @@ class ItemCategory extends Resource
      */
     public function lenses(NovaRequest $request)
     {
-        return [];
+        return [
+            new DonationStorageLens()
+        ];
     }
 
     /**
@@ -101,6 +96,11 @@ class ItemCategory extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        if (strpos(url()->current(), 'lens') !== false) {
+            return []; // Return an empty array to remove actions on the lens
+        }
+        return [
+
+        ];
     }
 }

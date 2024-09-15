@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('user_id')->nullable();
             $table->boolean('approved')->default(0);
             $table->text('note')->nullable();
-            $table->longText('line_items')->nullable();
+            // $table->longText('line_items')->nullable();
             $table->date('date')->nullable();
             $table->timestamps();
         });

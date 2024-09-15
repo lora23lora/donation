@@ -23,6 +23,11 @@ return new class extends Migration
             $table->tinyInteger('superviser_id')->nullable();
             $table->tinyInteger('city_id')->nullable();
             $table->tinyInteger('user_id')->nullable();
+            $table->tinyInteger('salary')->nullable();
+            $table->string('salary_amount')->nullable();
+            $table->tinyInteger('children')->nullable();
+            $table->string('no_of_children')->nullable();
+            $table->string('salary_type')->nullable();
             $table->string('gender')->nullable();
             $table->boolean('active')->default(1);
             $table->string('file',100)->nullable();

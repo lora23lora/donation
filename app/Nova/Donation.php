@@ -2,21 +2,18 @@
 
 namespace App\Nova;
 
-use App\Models\Storage;
 use App\Nova\Actions\ExportDonationToCsv;
 use App\Nova\Actions\ExportToPdf;
 use App\Nova\Lenses\CityWithMostBeneficiary;
 use App\Nova\Lenses\ExpenseReport;
 use App\Nova\Lenses\TotalAmount;
-use Laravel\Nova\Actions\ExportAsCsv;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Whitecube\NovaFlexibleContent\Flexible;
 
 class Donation extends Resource
 {
@@ -32,7 +29,7 @@ class Donation extends Resource
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'id';
 
     /**
      * Get the displayable label of the resource.
@@ -101,13 +98,11 @@ class Donation extends Resource
      */
     public function fields(NovaRequest $request)
     {
-        $availableItems = Storage::where('qty', '>', 0)->pluck('item_name', 'item_id');
+        // $availableItems = Storage::where('qty', '>', 0)->pluck('item_name', 'item_id');
 
         return [
             ID::make(__('ID'),'id')->sortable(),
-            BelongsTo::make(__('beneficiary'),'beneficiary','App\Nova\Beneficiary')->showCreateRelationButton()->withoutTrashed()->onlyOnForms()->searchable(),
-
-            BelongsTo::make(__('beneficiary'),'beneficiary','App\Nova\Beneficiary')->onlyOnIndex(),
+            BelongsTo::make(__('beneficiary'),'beneficiary','App\Nova\Beneficiary')->showCreateRelationButton()->withoutTrashed()->searchable(),
 
             Number::make(__('Amount'),'amount')->canSee(function($request){
                 return $request->user()->name === 'admin';
@@ -115,18 +110,19 @@ class Donation extends Resource
             Number::make(__('Amount'),'amount')->exceptOnForms()->displayUsing(function ($value) {
                 return number_format($value, 0, '.', ',');
             }),
-            Flexible::make(__('Items'),'line_items')
-            ->addLayout(__('section'), 'wysiwyg', [
-                Select::make(__('Items'),'items')
-                ->options($availableItems)
-                ->displayUsingLabels(),
-            Number::make(__('qty'), 'qty'),
-            ])->button('Add Item'),
 
             Boolean::make(__('Approved'),'approved')->filterable()->canSee(function($request){
                 return $request->user()->name === 'admin';
             })->filterable(),
-            Date::make(__('Date'),'date')->rules('required','date')->filterable()
+            // Date::make(__('Date'),'date')->rules('required','date')->filterable(),
+            BelongsToMany::make('Storage', 'storages', 'App\Nova\Storage')->fields(function ($request, $relatedModel) {
+                return [
+                    Date::make('Date','date'),
+                    Number::make('Price','price'),
+                    Number::make('Amount','amount'),
+                ];
+            }),
+
         ];
     }
 

@@ -103,15 +103,10 @@ class Beneficiary extends Resource
             Text::make(__('Address'),'address')->hideFromIndex(),
             MultiSelect::make(__('Status'),'status')->options($availableItems)->filterable(),
             BelongsTo::make(__('city'), 'city', 'App\Nova\City')->showCreateRelationButton()->withoutTrashed()->filterable()->required(),
-            Text::make(__('Birthdate'),'birthdate')->hideFromIndex(),
-            Select::make(__('gender'),'gender')->options([
-               __( 'not selected') => 'not selected',
-                __('male') => 'male',
-                __('female') => 'female',
-            ])->required(),
-            Number::make(__('Family Members'),'familyMembers'),
             Number::make(__('Telephone 1'),'Tel1'),
             Number::make(__('Telephone 2'),'Tel2')->hideFromIndex(),
+            Number::make(__('Family Members'),'familyMembers')->hideFromIndex(),
+
             Boolean::make(__('Salary'),'salary')->default(0)->filterable(),
 
             Text::make(__('Salary Type'),'salary_type')
@@ -132,12 +127,28 @@ class Beneficiary extends Resource
                 }
             })->hideFromIndex(),
 
+            Boolean::make(__('Children'),'children')->default(0)->filterable(),
+
+            Number::make(__('No of children'),'no_of_children')
+            ->hide()
+            ->rules('sometimes')
+            ->dependsOn('children', function (Number $field, NovaRequest $request, FormData $formData) {
+                if ($formData->boolean('children') === true) {
+                    $field->show();
+                }
+            })->hideFromIndex(),
+            Text::make(__('Birthdate'),'birthdate')->hideFromIndex(),
+            Select::make(__('gender'),'gender')->options([
+               __( 'not selected') => 'not selected',
+                __('male') => 'male',
+                __('female') => 'female',
+            ])->rules('required')->hideFromIndex(),
             BelongsTo::make(__('superviser'), 'superviser', 'App\Nova\Superviser')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
             Boolean::make(__('Active'),'active')->rules('required')->default(1)->onlyOnForms(),
             NovaSwitcher::make(__('Active'),'active')->filterable()->exceptOnForms(),
             File::make(__('file')),
             Textarea::make(__('note'),'note')->nullable(),
-            HasMany::make('donation','donation', 'App\Nova\Donation')->nullable(),
+            // HasMany::make('donation','donation', 'App\Nova\Donation')->nullable(),
 
         ];
     }

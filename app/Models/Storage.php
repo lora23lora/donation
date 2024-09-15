@@ -17,17 +17,16 @@ class Storage extends Model
         'qty',
         'price',
         'total',
-        'date'
     ];
 
-
-    protected $casts = [
-        'date' => 'date',
-
-    ];
 
     public function category()
     {
         return $this->belongsTo(ItemCategory::class, 'id','item_category');
     }
+    public function donations()
+    {
+        return $this->belongsToMany(Donation::class,'donation_storage', 'storage_item_id', 'donation_id');
+    }
+
 }

@@ -26,6 +26,20 @@ class Zakat extends Resource
      */
     public static $title = 'id';
 
+    public static function label()
+    {
+        return __('Zakats');
+    }
+
+    /**
+     * Get the displayable singular label of the resource.
+     *
+     * @return string
+     */
+    public static function singularLabel()
+    {
+        return __('Zakat');
+    }
     /**
      * The columns that should be searched.
      *

@@ -17,23 +17,16 @@ class Donation extends Model
         'beneficiary_id',
         'approved',
         'note',
-        'line_items',
-        'date'
-    ];
-    protected $casts = [
-        'date' => 'datetime',
-        'line_items' => 'array',
 
     ];
 
 
-    public function getFlexibleContentAttribute()
-    {
-        return $this->flexible('line_items');
-    }
     public function beneficiary()
     {
         return $this->belongsTo(Beneficiary::class);
     }
-
+    public function storages()
+    {
+        return $this->belongsToMany(Storage::class, 'donation_storage', 'donation_id', 'storage_item_id')->withPivot( 'price','amount');
+    }
 }

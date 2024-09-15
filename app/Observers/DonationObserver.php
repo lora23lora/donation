@@ -17,7 +17,7 @@ class DonationObserver
     public function created(Donation $donation): void
     {
 
-        $this->updateStorageFromLineItems($donation->line_items, true);
+        // $this->updateStorageFromLineItems($donation->line_items, true);
 
         $adminUsers = User::where('name', 'admin')->get();
 
