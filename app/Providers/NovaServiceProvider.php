@@ -14,6 +14,7 @@ use Laravel\Nova\NovaApplicationServiceProvider;
 use Anaseqal\NovaImport\NovaImport;
 use App\Models\Storage as ModelsStorage;
 use App\Nova\City;
+use App\Nova\Income;
 use App\Nova\ItemCategory;
 use App\Nova\ItemDonated;
 use App\Nova\Lenses\CityWithMostBeneficiary;
@@ -40,6 +41,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         Nova::mainMenu(function () {
             return [
                MenuSection::dashboard(Main::class)->icon('chart-bar'),
+               MenuSection::resource(Income::class)->icon('currency-dollar'),
                MenuSection::resource(Donation::class)->icon('calculator'),
                MenuSection::resource(Zakat::class)->icon('book-open'),
                MenuSection::resource(Beneficiary::class)->icon('clipboard-list'),
