@@ -6,6 +6,7 @@ use App\Nova\Metrics\Balance;
 use App\Nova\Metrics\TotalAmount;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
@@ -51,7 +52,9 @@ class Income extends Resource
                 return number_format($amount, 0, '.', ',');
             }),
             Date::make(__('Date'),'date')->rules('required','date'),
-            Text::make(__('Note'),'note')->rules('nullable')
+            Text::make(__('Note'),'note')->rules('nullable'),
+            File::make(__('file'))->rules('nullable'),
+
 
         ];
     }

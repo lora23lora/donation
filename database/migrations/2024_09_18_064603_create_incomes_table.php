@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('amount')->nullable();
             $table->text('note')->nullable();
             $table->date('date');
+            $table->string('file',100)->nullable();
             $table->timestamps();
         });
     }

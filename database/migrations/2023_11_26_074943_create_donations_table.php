@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('note')->nullable();
             // $table->longText('line_items')->nullable();
             $table->date('date')->nullable();
+            $table->string('file',100)->nullable();
             $table->timestamps();
         });
     }

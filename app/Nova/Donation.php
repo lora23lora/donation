@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -112,7 +113,7 @@ class Donation extends Resource
             Number::make(__('Amount'),'amount')->exceptOnForms()->displayUsing(function ($value) {
                 return number_format($value, 0, '.', ',');
             }),
-
+            File::make('file')->rules('nullable'),
             Boolean::make(__('Approved'),'approved')->filterable()->canSee(function($request){
                 return $request->user()->name === 'admin';
             })->filterable(),
