@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Metrics\Balance;
 use App\Nova\Metrics\TotalAmount;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
@@ -64,7 +65,8 @@ class Income extends Resource
     public function cards(NovaRequest $request)
     {
         return [
-            new TotalAmount()
+            new TotalAmount(),
+            new Balance(),
         ];
     }
 
