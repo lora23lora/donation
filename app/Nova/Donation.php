@@ -7,6 +7,8 @@ use App\Nova\Actions\ExportToPdf;
 use App\Nova\Lenses\CityWithMostBeneficiary;
 use App\Nova\Lenses\ExpenseReport;
 use App\Nova\Lenses\TotalAmount;
+use App\Nova\Metrics\Balance;
+use App\Nova\Metrics\TotalExpense;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
@@ -135,7 +137,8 @@ class Donation extends Resource
     public function cards(NovaRequest $request)
     {
         return [
-
+            new TotalExpense(),
+            new Balance(),
         ];
     }
 

@@ -10,7 +10,7 @@ use Laravel\Nova\Nova;
 
 class Balance extends Value
 {
-    public $icon = false;
+    public $icon = 'scale';
 
     /**
      * Calculate the value of the metric.
@@ -21,7 +21,7 @@ class Balance extends Value
     public function calculate(NovaRequest $request)
     {
         $totalIncome = Income::sum('amount');
-        $totalExpense = Donation::sum('amount');
+        $totalExpense = Donation::where('approved', true)->sum('amount'); // Sum only approved expenses
 
         // Calculate the balance
         $balance = $totalIncome - $totalExpense;
@@ -39,6 +39,7 @@ class Balance extends Value
     public function ranges()
     {
         return [
+            'ALL' => __('All Time'),
             30 => Nova::__('30 Days'),
             60 => Nova::__('60 Days'),
             365 => Nova::__('365 Days'),

@@ -9,7 +9,18 @@ use Laravel\Nova\Nova;
 
 class TotalAmount extends Value
 {
-    public $icon = false;
+    public $icon = 'currency-dollar';
+
+     /**
+     * Get the displayable name of the filter.
+     *
+     * @return string
+     */
+    public function name()
+    {
+        return __("Total Income");
+    }
+
     /**
      * Calculate the value of the metric.
      *
@@ -29,6 +40,7 @@ class TotalAmount extends Value
     public function ranges()
     {
         return [
+            'ALL' => __('All Time'),
             30 => Nova::__('30 Days'),
             60 => Nova::__('60 Days'),
             365 => Nova::__('365 Days'),

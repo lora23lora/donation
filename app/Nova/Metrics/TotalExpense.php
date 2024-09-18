@@ -4,22 +4,13 @@ namespace App\Nova\Metrics;
 
 use App\Models\Donation;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Metrics\Trend;
+use Laravel\Nova\Metrics\Value;
 use Laravel\Nova\Nova;
 
-class UsersPerDay extends Trend
+class TotalExpense extends Value
 {
 
-
-    /**
-     * Get the displayable name of the filter.
-     *
-     * @return string
-     */
-    public function name()
-    {
-        return __("Total Expense");
-    }
+    public $icon = 'calculator';
 
 
     /**
@@ -30,8 +21,12 @@ class UsersPerDay extends Trend
      */
     public function calculate(NovaRequest $request)
     {
-        return $this->sumByDays($request, Donation::class,'amount')->showSumValue();
+        // return $this->sum($request, Donation::class,'amount');
+        $approvedExpenses = Donation::where('approved', true)->sum('amount');
 
+        // Return the sum as the metric result
+        return $this->result($approvedExpenses)
+                    ->format('0,0');
     }
 
     /**
@@ -42,12 +37,14 @@ class UsersPerDay extends Trend
     public function ranges()
     {
         return [
-            7 => Nova::__('7 Days'),
-            14 => Nova::__('14 Days'),
+            'ALL' => __('All Time'),
             30 => Nova::__('30 Days'),
             60 => Nova::__('60 Days'),
-            90 => Nova::__('90 Days'),
             365 => Nova::__('365 Days'),
+            'TODAY' => Nova::__('Today'),
+            'MTD' => Nova::__('Month To Date'),
+            'QTD' => Nova::__('Quarter To Date'),
+            'YTD' => Nova::__('Year To Date'),
         ];
     }
 
@@ -59,15 +56,5 @@ class UsersPerDay extends Trend
     public function cacheFor()
     {
         // return now()->addMinutes(5);
-    }
-
-    /**
-     * Get the URI key for the metric.
-     *
-     * @return string
-     */
-    public function uriKey()
-    {
-        return 'users-per-day';
     }
 }

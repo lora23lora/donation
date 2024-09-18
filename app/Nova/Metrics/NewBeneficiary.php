@@ -10,6 +10,7 @@ use Laravel\Nova\Nova;
 
 class NewBeneficiary extends Value
 {
+    public $icon = false;
 
     /**
      * Get the displayable name of the filter.
@@ -39,15 +40,14 @@ class NewBeneficiary extends Value
     public function ranges()
     {
         return [
-            7 => Nova::__('7 Days'),
+            'ALL' => __('All Time'),
             30 => Nova::__('30 Days'),
             60 => Nova::__('60 Days'),
             365 => Nova::__('365 Days'),
             'TODAY' => Nova::__('Today'),
             'MTD' => Nova::__('Month To Date'),
             'QTD' => Nova::__('Quarter To Date'),
-            'YTD' => Nova::__('Year To Date'),
-        ];
+            'YTD' => Nova::__('Year To Date'),        ];
     }
 
     /**

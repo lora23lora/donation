@@ -18,7 +18,7 @@ class CityMetric extends Partition
      */
     public function name()
     {
-        return __("City Metric");
+        return __("City");
     }
     /**
      * Calculate the value of the metric.

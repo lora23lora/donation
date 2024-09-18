@@ -39,13 +39,13 @@ class DonationStorageLens extends Lens
     {
         $query = $request->withFilters($query);
 
-    // Apply your specific query
-    $query->select('storage_item_id', 'storages.item_name', DB::raw('SUM(amount) as total_amount'))
-          ->leftJoin('storages', 'storages.item_id', '=', 'donation_storage.storage_item_id')
-          ->groupBy('storage_item_id', 'storages.item_name');
+        // Apply your specific query
+        $query->select('storage_item_id', 'storages.item_name', 'storages.unit', DB::raw('SUM(amount) as total_amount'))
+              ->leftJoin('storages', 'storages.item_id', '=', 'donation_storage.storage_item_id')
+              ->groupBy('storage_item_id', 'storages.item_name', 'storages.unit'); // Include 'unit' in the group by
 
-    // Apply ordering after filtering
-    return $request->withOrdering($query);
+        // Apply ordering after filtering
+        return $request->withOrdering($query);
     }
 
     /**
@@ -58,6 +58,8 @@ class DonationStorageLens extends Lens
     {
         return [
             Text::make(__('Item Name'), 'item_name')->sortable(),
+            Text::make(__('Unit'), 'unit')->sortable(),
+
             Text::make(__('Total Amount'), 'total_amount'),
             Date::make(__('Date'), 'date')->filterable()->hideFromIndex(),
 

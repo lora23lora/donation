@@ -89,7 +89,8 @@ class Storage extends Resource
         return [
             ID::make(__('item_id'),'item_id')->sortable(),
             Text::make(__('Item Name'),'item_name'),
-            BelongsTo::make('Item Category','category','App\Nova\ItemCategory'),
+            Text::make(__('Unit'),'unit')->rules('required','string','max:255'),
+            BelongsTo::make('Item Category','category','App\Nova\ItemCategory')->showCreateRelationButton(),
             // Number::make(__('Quantitiy'),'qty')->exceptOnForms(),
             // Number::make(__('Price'),'price'),
             // Number::make(__('Total'))->exceptOnForms()->displayUsing(function () {

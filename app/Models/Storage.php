@@ -22,7 +22,7 @@ class Storage extends Model
 
     public function category()
     {
-        return $this->belongsTo(ItemCategory::class, 'id','item_category');
+        return $this->belongsTo(ItemCategory::class,'itemCategory','id');
     }
     public function donations()
     {
