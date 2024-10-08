@@ -46,11 +46,11 @@ class ExportDonationToCsv extends DownloadExcel implements WithMapping, WithHead
     public function map($model): array
     {
         $lineItems = [];
-        foreach ($model->line_items as $line_item) {
-            $storageItem = Storage::find($line_item['attributes']['items']);
-            $itemName = $storageItem ? $storageItem->item_name : 'Unknown';
-            $lineItems[] = " $itemName - Qty: {$line_item['attributes']['qty']},";
-        }
+        // foreach ($model->line_items as $line_item) {
+        //     $storageItem = Storage::find($line_item['attributes']['items']);
+        //     $itemName = $storageItem ? $storageItem->item_name : 'Unknown';
+        //     $lineItems[] = " $itemName - Qty: {$line_item['attributes']['qty']},";
+        // }
         return [
             $model->beneficiary->name,
             $model->beneficiary->city->city_name,
@@ -59,7 +59,7 @@ class ExportDonationToCsv extends DownloadExcel implements WithMapping, WithHead
             $model->beneficiary->familyMembers,
             $this->getStatusString($model->beneficiary->status),
             $model->amount,
-            $model->beneficiary->superviser->name,
+            $model->beneficiary->superviser->name ?? 'N/A',
             $model->beneficiary->Tel1,
             $model->beneficiary->Tel2,
             implode("\n", $lineItems), // Join line items into a string

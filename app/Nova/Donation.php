@@ -117,12 +117,14 @@ class Donation extends Resource
             Boolean::make(__('Approved'),'approved')->filterable()->canSee(function($request){
                 return $request->user()->name === 'admin';
             })->filterable(),
+            Date::make('Date','date')->nullable(),
+
             // Date::make(__('Date'),'date')->rules('required','date')->filterable(),
             BelongsToMany::make('Storage', 'storages', 'App\Nova\Storage')->fields(function ($request, $relatedModel) {
                 return [
-                    Date::make('Date','date'),
-                    Number::make('Price','price'),
-                    Number::make('Amount','amount'),
+                    Date::make('Date','date')->rules('required','date'),
+                    Number::make('Price','price')->nullable(),
+                    Number::make('Amount','amount')->rules('required','numeric'),
                 ];
             }),
 

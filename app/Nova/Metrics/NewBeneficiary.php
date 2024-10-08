@@ -29,7 +29,7 @@ class NewBeneficiary extends Value
      */
     public function calculate(NovaRequest $request)
     {
-        return $this->count($request, Beneficiary::class);
+        return $this->count($request, Beneficiary::class)->format('0,0');
     }
 
     /**

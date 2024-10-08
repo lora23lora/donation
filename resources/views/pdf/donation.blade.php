@@ -46,7 +46,6 @@
 </head>
 
 <body>
-    <div class="title">Donation Information</div>
     <table>
         <thead>
             <tr>
@@ -63,7 +62,7 @@
                 <th>Supervisor</th>
                 <th>Date</th>
                 <th>Note</th>
-                <th>Item</th>
+                <th>Items</th> <!-- This will be the header for the storage items -->
             </tr>
         </thead>
         <tbody>
@@ -86,27 +85,26 @@
                             {{ \App\Models\Status::find($model->beneficiary->status)->name }}
                         @endif
                     </td>
-                     <td>{{ $model->amount }}</td>
+                    <td>{{ number_format($model->amount, 0, '.', ',') }}</td>
                     <td>{{ $model->beneficiary->Tel1 }}</td>
                     <td>{{ $model->beneficiary->Tel2 }}</td>
-                    <td>{{ $model->beneficiary->superviser->name }}</td>
-                    <td>{{ $model->date }}</td>
+                    <td>{{ $model->beneficiary->superviser->name ?? ' ' }}</td>
+                    <td>{{ $model->date ? \Carbon\Carbon::parse($model->date)->format('Y-m-d') : ' ' }}</td> <!-- Format the date -->
                     <td>{{ $model->note }}</td>
                     <td>
-                        @foreach($model->line_items as $line_item)
-                            @php
-                                $storageItem = \App\Models\Storage::find($line_item['attributes']['items']);
-                            @endphp
-                            @if($storageItem)
-                                {{ $storageItem->item_name }} Qty: {{ $line_item['attributes']['qty'] }},<br>
-                            @endif
-                        @endforeach
-                    </td>
+                        @if($model->storages->count())
+                            @foreach ($model->storages as $storage)
+                                {{ $storage->pivot->amount }}  {{ $storage->item_name }}
+                            @endforeach
+                        @else
 
+                        @endif
+                    </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+
 </body>
 
 </html>

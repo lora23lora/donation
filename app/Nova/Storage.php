@@ -100,8 +100,8 @@ class Storage extends Resource
             Textarea::make(__('Note'),'note'),
             BelongsToMany::make('Donation', 'donations', 'App\Nova\Donation')->fields(function ($request, $relatedModel) {
                 return [
-                    Date::make('Date','date'),
-                    Number::make('Price','price'),
+                    Date::make('Date','date')->rules('required','date'),
+                    Number::make('Price','price')->nullable(),
                     Number::make('Amount','amount'),
                 ];
             }),

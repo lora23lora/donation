@@ -16,25 +16,27 @@ class DonationObserver
      */
     public function created(Donation $donation): void
     {
-
-        // $this->updateStorageFromLineItems($donation->line_items, true);
-
         $adminUsers = User::where('name', 'admin')->get();
 
         foreach ($adminUsers as $admin) {
             $resourceId = $donation->id;
-
             $baseUrl = '/resources/donations/';
 
+            $beneficiaryName = $donation->beneficiary->name;
+            $cityName = $donation->beneficiary->city->city_name ?? 'N/A';
+
             $notification = NovaNotification::make()
-            ->message(__('Name: ') . ' : ' . $donation->beneficiary->name  . '  - ' . __('| City: ') . ' : '. ' ' . $donation->beneficiary->city->city_name)                ->url($baseUrl . $resourceId)
+                ->message(__('Name: ') . ' : ' . $beneficiaryName . '  - ' . __('| City: ') . ' : ' . $cityName)
+                ->url($baseUrl . $resourceId)
                 ->type('info');
 
             $admin->notify($notification);
         }
-        Mail::to('nuhaahmad744@gmail.com')->send(new DonationCreated($donation));
 
+        // Send the email
+        Mail::to('nuhaahmad744@gmail.com')->send(new DonationCreated($donation));
     }
+
 
 
     private function updateStorageFromLineItems($lineItems, $Add)
