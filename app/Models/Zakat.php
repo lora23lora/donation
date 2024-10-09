@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Zakat extends Model
 {
     use HasFactory;
-    
+
     protected $casts = [
-        'date' => 'datetime',
+        'date' => 'date',
     ];
     public function beneficiary()
     {
