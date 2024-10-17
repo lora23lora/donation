@@ -130,18 +130,17 @@
 
 <body>
 
-    <h1>Donation Summary</h1>
 
     @foreach ($models as $model)
         <!-- Personal Information Section -->
-        <div class="section-header">Beneficiary Details</div>
+        <div class="section-header">Personal Details   زانیاری کەسی</div>
         <table class="personal-info-table">
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Address</th>
-                    <th>City</th>
+                    <th>Amount</th>
                     <th>Birthdate</th>
+                    <th>Address</th>
                     <th>Tel1</th>
                     <th>Date</th>
                 </tr>
@@ -155,17 +154,18 @@
                 @endphp
                 <tr style="background-color: {{ $rowColor }}">
                     <td>{{ $model->beneficiary->name }}</td>
-                    <td>{{ $model->beneficiary->address }}</td>
-                    <td>{{ $model->beneficiary->city->city_name }}</td>
+                    <td>{{ $model->amount }}</td>
                     <td>{{ $model->beneficiary->birthdate }}</td>
+                    <td>{{ $model->beneficiary->address }}</td>
                     <td>{{ $model->beneficiary->Tel1 }}</td>
                     <td>{{ $model->date ? \Carbon\Carbon::parse($model->date)->format('Y-m-d') : ' ' }}</td>
+
                 </tr>
             </tbody>
         </table>
 
         <!-- Items Section -->
-        <div class="section-header">Donation Items</div>
+        <div class="section-header">Items  بابەتەکان</div>
         <table class="items-table">
             <thead>
                 <tr>
@@ -192,7 +192,6 @@
 
     <!-- Signature Section -->
     <div class="signature-section">
-        <div class="section-header">Supervisors and Signatures</div>
         <table class="supervisor-table">
             <tr>
                 <td>ئەندام<br><div class="signature-line"></div></td>

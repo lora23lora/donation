@@ -83,13 +83,15 @@ class Donation extends Resource
     ];
 
     public static function indexQuery(NovaRequest $request, $query)
-    {
-        if ($request->user()->name === 'admin') {
-            return $query;
-        } else {
-            return $query->where('approved', true);
-        }
+{
+    if ($request->user()->admin) {
+        // If the user is an admin, return all records (both approved and unapproved)
+        return $query;
+    } else {
+        // If the user is not an admin, only return approved records
+        return $query->where('approved', true);
     }
+}
 
 
 
@@ -107,15 +109,13 @@ class Donation extends Resource
             ID::make(__('ID'),'id')->sortable(),
             BelongsTo::make(__('beneficiary'),'beneficiary','App\Nova\Beneficiary')->showCreateRelationButton()->withoutTrashed()->searchable(),
 
-            Number::make(__('Amount'),'amount')->canSee(function($request){
-                return $request->user()->name === 'admin';
-            })->onlyOnForms(),
+            Number::make(__('Amount'),'amount')->onlyOnForms(),
             Number::make(__('Amount'),'amount')->exceptOnForms()->displayUsing(function ($value) {
                 return number_format($value, 0, '.', ',');
             }),
             File::make('file')->rules('nullable'),
             Boolean::make(__('Approved'),'approved')->filterable()->canSee(function($request){
-                return $request->user()->name === 'admin';
+                return $request->user()->admin;
             })->filterable(),
             Date::make('Date','date')->nullable(),
 

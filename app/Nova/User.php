@@ -6,6 +6,7 @@ use App\Imports\UsersImport;
 use App\Nova\Actions\ImportUsers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
@@ -92,6 +93,7 @@ class User extends Resource
             Text::make(__('Name'),'name')
                 ->sortable()
                 ->rules('required', 'max:255'),
+                Boolean::make(__('Admin'),'admin')->rules('required'),
 
             Text::make(__('Email'),'email')
                 ->sortable()

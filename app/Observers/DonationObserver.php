@@ -16,7 +16,8 @@ class DonationObserver
      */
     public function created(Donation $donation): void
     {
-        $adminUsers = User::where('name', 'admin')->get();
+
+        $adminUsers = User::where('admin', true)->get();
 
         foreach ($adminUsers as $admin) {
             $resourceId = $donation->id;
@@ -26,11 +27,11 @@ class DonationObserver
             $cityName = $donation->beneficiary->city->city_name ?? 'N/A';
 
             $notification = NovaNotification::make()
-                ->message(__('Name: ') . ' : ' . $beneficiaryName . '  - ' . __('| City: ') . ' : ' . $cityName)
+                ->message(__('Name: ') . $beneficiaryName . '  - ' . __('| City: ') . $cityName)
                 ->url($baseUrl . $resourceId)
                 ->type('info');
 
-            $admin->notify($notification);
+            $admin->notify($notification); // Notify the admin users
         }
 
         // Send the email
