@@ -14,8 +14,6 @@ class Storage extends Model
 
     protected $fillable = [
         'item_name',
-        'qty',
-        'price',
         'total',
     ];
 

@@ -47,7 +47,8 @@ class ItemDonated extends Resource
             ID::make()->sortable(),
             BelongsTo::make(__('Donation'),'donation','App\Nova\Donation'),
             BelongsTo::make(__('Storage'),'storage','App\Nova\Storage'),
-            Date::make('Date','date'),
+            Date::make('Date', 'date')
+            ->default(now()),
             Number::make('Price','price'),
             Number::make('Amount','amount'),
         ];

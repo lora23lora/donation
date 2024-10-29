@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\Hidden;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\ID;
@@ -92,16 +93,12 @@ class Storage extends Resource
             Text::make(__('Item Name'),'item_name'),
             Text::make(__('Unit'),'unit')->rules('required','string','max:255'),
             BelongsTo::make('Item Category','category','App\Nova\ItemCategory')->showCreateRelationButton(),
-            // Number::make(__('Quantitiy'),'qty')->exceptOnForms(),
-            // Number::make(__('Price'),'price'),
-            // Number::make(__('Total'))->exceptOnForms()->displayUsing(function () {
-            //     return $this->qty * $this->price;
-            // }),
-
             Textarea::make(__('Note'),'note'),
             BelongsToMany::make('Donation', 'donations', 'App\Nova\Donation')->fields(function ($request, $relatedModel) {
                 return [
-                    Date::make('Date','date')->rules('required','date'),
+                    Hidden::make('Date', 'date')
+                    ->default(now()->format('Y-m-d'))
+                    ->rules('required', 'date'),
                     Number::make('Price','price')->nullable(),
                     Number::make('Amount','amount'),
                 ];

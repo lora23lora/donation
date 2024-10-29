@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\File;
+use Laravel\Nova\Fields\Hidden;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -122,7 +123,9 @@ class Donation extends Resource
             // Date::make(__('Date'),'date')->rules('required','date')->filterable(),
             BelongsToMany::make('Storage', 'storages', 'App\Nova\Storage')->fields(function ($request, $relatedModel) {
                 return [
-                    Date::make('Date','date')->rules('required','date'),
+                    Hidden::make('Date', 'date')
+                    ->default(now()->format('Y-m-d'))
+                    ->rules('required', 'date'),
                     Number::make('Price','price')->nullable(),
                     Number::make('Amount','amount')->rules('required','numeric'),
                 ];
