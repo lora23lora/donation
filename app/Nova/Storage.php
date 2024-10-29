@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ExportItemToPdf;
 use App\Nova\Lenses\ItemReport;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
@@ -141,6 +142,21 @@ class Storage extends Resource
         return [
 
             new ItemReport()
+        ];
+    }
+
+
+    /**
+     * Get the actions available for the resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @return array
+     */
+    public function actions(NovaRequest $request)
+    {
+
+        return [
+            new ExportItemToPdf,
         ];
     }
 }

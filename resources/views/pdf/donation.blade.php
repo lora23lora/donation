@@ -16,6 +16,21 @@
             color: #333;
             text-align: center;
         }
+        .logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 80px;  /* Adjust the size as necessary */
+            height: auto;
+        }
+        .logoName{
+            position: absolute;
+            top: 120px;
+            left: 20px;
+            font-family: 'Arial', sans-serif;
+            font-size: 15px;
+            color: #0d6f9c;
+        }
 
         /* Table styles */
         table {
@@ -42,7 +57,7 @@
             color: #555;
             border-bottom: 1px solid #ddd;
             text-align: center; /* Center the text inside td */
-            vertical-align: middle; /* Align vertically to the middle */
+            vertical-align: middle;
         }
 
         /* Alternating row colors for readability */
@@ -74,11 +89,11 @@
 
         /* Additional styling */
         .personal-info-table th {
-            background-color: #f2994a; /* More distinct color for the top table */
+            background-color: #ED3E34; /* More distinct color for the top table */
         }
 
         .items-table th {
-            background-color: #56ccf2; /* Different color for the items section */
+            background-color: #33a8cf; /* Different color for the items section */
         }
 
         /* Section headers for readability */
@@ -91,49 +106,15 @@
             margin-bottom: 10px;
         }
 
-        /* Signature area styling */
-        .signature-section {
-            margin-top: 40px;
-            text-align: center;
-        }
-
-        .supervisor-table {
-            width: 80%;
-            margin: 30px auto;
-        }
-
-        .supervisor-table td {
-            padding: 20px;
-            text-align: center;
-            font-weight: bold;
-            vertical-align: bottom;
-        }
-
-        .signature-line {
-            margin-top: 40px;
-            border-top: 1px solid #000;
-            width: 200px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        footer {
-            text-align: center;
-            padding: 10px;
-            font-size: 12px;
-            color: #888;
-            border-top: 1px solid #ddd;
-            margin-top: 30px;
-        }
     </style>
 </head>
 
 <body>
-
-
+    <img src="logo.jpeg" class="logo" alt="Logo">
+<div class="logoName">ڕێکخراوی بژێوی مرۆیی</div>
     @foreach ($models as $model)
         <!-- Personal Information Section -->
-        <div class="section-header">Personal Details   زانیاری کەسی</div>
+        <div class="section-header">Personal Details زانیاری کەسی</div>
         <table class="personal-info-table">
             <thead>
                 <tr>
@@ -148,60 +129,41 @@
             <tbody>
                 @php
                     $rowColor = $loop->iteration % 2 == 0 ? '#ffffff' : '#ecf5fb';
-                    $statusArray = is_array($model->beneficiary->status)
-                        ? $model->beneficiary->status
-                        : json_decode($model->beneficiary->status);
                 @endphp
                 <tr style="background-color: {{ $rowColor }}">
                     <td>{{ $model->beneficiary->name }}</td>
-                    <td>{{ $model->amount }}</td>
+                    <td>{{ number_format($model->amount, 0, '.', ',') }}</td>
                     <td>{{ $model->beneficiary->birthdate }}</td>
                     <td>{{ $model->beneficiary->address }}</td>
                     <td>{{ $model->beneficiary->Tel1 }}</td>
                     <td>{{ $model->date ? \Carbon\Carbon::parse($model->date)->format('Y-m-d') : ' ' }}</td>
-
                 </tr>
             </tbody>
         </table>
 
         <!-- Items Section -->
-        <div class="section-header">Items  بابەتەکان</div>
-        <table class="items-table">
-            <thead>
-                <tr>
-                    <th>Item Name</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Has Item</th>
-                    <th>Does Not Have</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($model->storages as $storage)
-                <tr>
-                    <td>{{ $storage->item_name }}</td>
-                    <td>{{ $storage->pivot->amount }}</td>
-                    <td>{{ number_format($storage->pivot->price, 2) }}</td>
-                    <td><input type="checkbox" {{ $storage->has_item ? 'checked' : '' }}></td>
-                    <td><input type="checkbox" {{ !$storage->has_item ? 'checked' : '' }}></td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+        @if($model->storages->isNotEmpty())
+            <div class="section-header">Items بابەتەکان</div>
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($model->storages as $storage)
+                    <tr>
+                        <td>{{ $storage->item_name }}</td>
+                        <td>{{ $storage->pivot->amount }}</td>
+                        <td>{{ number_format($storage->pivot->price, 2) }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
     @endforeach
-
-    <!-- Signature Section -->
-    <div class="signature-section">
-        <table class="supervisor-table">
-            <tr>
-                <td>ئەندام<br><div class="signature-line"></div></td>
-                <td>ئەندام<br><div class="signature-line"></div></td>
-                <td>سەرپەرشتیار<br><div class="signature-line"></div></td>
-            </tr>
-        </table>
-    </div>
-
-
 
 </body>
 

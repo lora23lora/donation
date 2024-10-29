@@ -2,6 +2,7 @@
 
 use App\Models\Beneficiary;
 use App\Models\Donation;
+use App\Models\Storage;
 use Illuminate\Support\Facades\Route;
 use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
 
@@ -41,3 +42,14 @@ Route::get('/beneficiary-pdf', function () {
     return $pdf->stream('document.pdf');
 
 })->name('beneficiary-pdf');
+
+Route::get('/items-pdf', function () {
+
+    $modelIds = request()->query('models');
+    $models = Storage::whereIn('item_id', explode(',', $modelIds))->get();
+
+    $pdf = PDF::loadView('pdf.Items', compact('models'));
+
+    return $pdf->stream('document.pdf');
+
+})->name('items-pdf');
