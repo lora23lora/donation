@@ -17,6 +17,7 @@ use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\Hidden;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Donation extends Resource
@@ -108,7 +109,8 @@ class Donation extends Resource
 
         return [
             ID::make(__('ID'),'id')->sortable(),
-            BelongsTo::make(__('beneficiary'),'beneficiary','App\Nova\Beneficiary')->showCreateRelationButton()->withoutTrashed()->searchable(),
+            BelongsTo::make(__('beneficiary'),'beneficiary','App\Nova\Beneficiary')->showCreateRelationButton()->withoutTrashed()->searchable()->nullable(),
+            BelongsTo::make(__('superviser'), 'superviser', 'App\Nova\Superviser')->showCreateRelationButton()->withoutTrashed()->filterable()->nullable(),
 
             Number::make(__('Amount'),'amount')->onlyOnForms(),
             Number::make(__('Amount'),'amount')->exceptOnForms()->displayUsing(function ($value) {
@@ -119,7 +121,7 @@ class Donation extends Resource
                 return $request->user()->admin;
             })->filterable(),
             Date::make('Date','date')->nullable(),
-
+            Textarea::make('Note','note'),
             // Date::make(__('Date'),'date')->rules('required','date')->filterable(),
             BelongsToMany::make('Storage', 'storages', 'App\Nova\Storage')->fields(function ($request, $relatedModel) {
                 return [
@@ -127,7 +129,7 @@ class Donation extends Resource
                     ->default(now()->format('Y-m-d'))
                     ->rules('required', 'date'),
                     Number::make('Price','price')->nullable(),
-                    Number::make('Amount','amount')->rules('required','numeric'),
+                    Number::make('Amount','amount'),
                 ];
             }),
 
@@ -165,6 +167,7 @@ class Donation extends Resource
         return [
             new ExportToPdf,
             new ExportDonationToCsv
+
         ];
     }
 

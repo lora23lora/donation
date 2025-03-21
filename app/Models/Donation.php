@@ -27,6 +27,10 @@ class Donation extends Model
     {
         return $this->belongsTo(Beneficiary::class, 'beneficiary_id','id');
     }
+    public function superviser()
+    {
+        return $this->belongsTo(Superviser::class, 'superviser_id','superviser_id');
+    }
     public function storages()
     {
         return $this->belongsToMany(Storage::class, 'donation_storage', 'donation_id', 'storage_item_id')->withPivot( 'price','amount');

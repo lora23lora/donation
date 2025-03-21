@@ -7,8 +7,7 @@
         /* Base styles */
         body {
             font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
+
             background-color: #f7f9fa;
         }
 
@@ -17,22 +16,20 @@
             text-align: center;
         }
 
+        /* .box{
+            position: relative;
+            top: 0;
+            border-top: #000 2px;
+} */
         /* Logo styles */
         .logo {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 80px;  /* Adjust the size as necessary */
-            height: auto;
+            top: 0;
+            left: 100px;
+            width: 170px;  /* Adjust the size as necessary */
+            height: 150px;
         }
-        .logoName{
-            position: absolute;
-            top: 120px;
-            left: 20px;
-            font-family: 'Arial', sans-serif;
-            font-size: 15px;
-            color: #0d6f9c;
-        }
+
 
         /* Table styles */
         table {
@@ -137,9 +134,10 @@
 
 <body>
 
+<div class="box">
+    <img src="logo.jpg" class="logo" alt="Logo">
 
-    <img src="logo.jpeg" class="logo" alt="Logo">
-<div class="logoName">ڕێکخراوی بژێوی مرۆیی</div>
+</div>
     <div class="section-header">Personal Information  زانیاری کەسی</div>
     <table class="personal-info-table items-table">
         <thead>

@@ -46,7 +46,7 @@
 </head>
 
 <body>
-    <div class="title">Donation Information</div>
+    {{-- <div class="title">Donation Information</div> --}}
     <table>
         <thead>
             <tr>

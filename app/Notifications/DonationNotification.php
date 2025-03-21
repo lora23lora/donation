@@ -2,22 +2,16 @@
 
 namespace App\Notifications;
 
+use Laravel\Nova\Notifications\NovaNotification;
 use Illuminate\Notifications\Notification;
 
 class DonationNotification extends Notification
 {
     protected $donation;
-    protected $redirectUrl;
 
     public function __construct($donation)
     {
         $this->donation = $donation;
-    }
-
-    public function withRedirectUrl($url)
-    {
-        $this->redirectUrl = $url;
-        return $this;
     }
 
     public function via($notifiable)
@@ -28,32 +22,24 @@ class DonationNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'donation_id' => $this->donation->id,
-            'message' => __('Name: ') . $this->donation->beneficiary->name . __(' City: ') . $this->donation->beneficiary->city->city_name,
-            'redirect_url' => $this->redirectUrl,
+            'message' => 'New donation added!',
+            'redirect_url' => url('/resources/donations/' . $this->donation->id),
         ];
     }
 
     public function toArray($notifiable)
     {
         return [
-            'donation_id' => $this->donation->id,
-            'message' => __('Name: ') . $this->donation->beneficiary->name . __(' City: ') . $this->donation->beneficiary->city->city_name,
-            'redirect_url' => $this->redirectUrl,
+            'message' => 'New donation added!',
+            'redirect_url' => url('/resources/donations/' . $this->donation->id),
         ];
-    }
-
-    public function viaQueues($notifiable)
-    {
-        return ['database'];
     }
 
     public function toNova($notifiable)
     {
-        return [
-            'donation_id' => $this->donation->id,
-            'message' => __('Name: ') . $this->donation->beneficiary->name . __(' City: ') . $this->donation->beneficiary->city->city_name,
-            'redirect_url' => $this->redirectUrl,
-        ];
+        return NovaNotification::make()
+            ->message('New donation added!')
+            ->url('/resources/donations/' . $this->donation->id)
+            ->type('info');
     }
 }
