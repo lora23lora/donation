@@ -59,7 +59,7 @@ class Zakat extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make(__('beneficiary'),'beneficiary','App\Nova\Beneficiary')->showCreateRelationButton()->withoutTrashed()->searchable()->filterable(),
+            BelongsTo::make(__('beneficiary'),'beneficiary','App\Nova\Beneficiary')->showCreateRelationButton()->withoutTrashed()->searchable()->filterable()->nullable(),
             Number::make(__('Amount'),'amount'),
             Date::make(__('Date'),'date')->rules('required','date')->filterable(),
             Textarea::make(__('Note'),'note')->nullable(),

@@ -24,6 +24,8 @@ use App\Nova\Lenses\ItemReport;
 use App\Nova\Status;
 use App\Nova\Superviser;
 use App\Nova\Zakat;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Blade;
 use Laravel\Nova\Menu\MenuGroup;
 use Laravel\Nova\Menu\MenuItem;
 
@@ -43,7 +45,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                MenuSection::dashboard(Main::class)->icon('chart-bar'),
                MenuSection::resource(Income::class)->icon('currency-dollar'),
                MenuSection::resource(Donation::class)->icon('calculator'),
-               MenuSection::resource(Zakat::class)->icon('book-open'),
+            //    MenuSection::resource(Zakat::class)->icon('book-open'),
                MenuSection::resource(Beneficiary::class)->icon('clipboard-list'),
                MenuSection::resource(Storage::class)->icon('home'),
                MenuSection::resource(User::class)->icon('user'),
@@ -56,6 +58,14 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                    MenuItem::resource(ItemCategory::class),
             ])->icon('plus')->collapsable(),
             ];
+        });
+
+        Nova::footer(function (Request $request) {
+            return Blade::render('
+                @env(\'prod\')
+                    This is production!
+                @endenv
+            ');
         });
     }
 

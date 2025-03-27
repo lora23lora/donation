@@ -51,14 +51,10 @@ class Storage_DonationPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function update(User $user)
-    {
-        if (strpos(url()->current(), 'lens') !== false) {
-            return false; // Deny access
-        }
-
-        return true;
-    }
+    public function attachUpdate(User $user)
+{
+    return false; // Completely disable editing of attached items
+}
 
     /**
      * Determine whether the user can delete the donation.

@@ -5,7 +5,6 @@ namespace App\Nova;
 use App\Nova\Actions\ExportDonationToCsv;
 use App\Nova\Actions\ExportToPdf;
 use App\Nova\Lenses\CityWithMostBeneficiary;
-use App\Nova\Lenses\ExpenseReport;
 use App\Nova\Lenses\TotalAmount;
 use App\Nova\Metrics\Balance;
 use App\Nova\Metrics\TotalExpense;
@@ -116,20 +115,19 @@ class Donation extends Resource
             Number::make(__('Amount'),'amount')->exceptOnForms()->displayUsing(function ($value) {
                 return number_format($value, 0, '.', ',');
             }),
-            File::make('file')->rules('nullable'),
+            File::make(__('file'))->rules('nullable'),
             Boolean::make(__('Approved'),'approved')->filterable()->canSee(function($request){
                 return $request->user()->admin;
             })->filterable(),
-            Date::make('Date','date')->nullable(),
-            Textarea::make('Note','note'),
+            Date::make(__('Date'),'date')->rules('required','date'),
+            Textarea::make(__('Note'),'note'),
             // Date::make(__('Date'),'date')->rules('required','date')->filterable(),
-            BelongsToMany::make('Storage', 'storages', 'App\Nova\Storage')->fields(function ($request, $relatedModel) {
+            BelongsToMany::make(__('Storage'), 'storages', 'App\Nova\Storage')->fields(function ($request, $relatedModel) {
                 return [
-                    Hidden::make('Date', 'date')
+                    Hidden::make(__('Date'),'date')
                     ->default(now()->format('Y-m-d'))
                     ->rules('required', 'date'),
-                    Number::make('Price','price')->nullable(),
-                    Number::make('Amount','amount'),
+                    Number::make(__('Amount'),'amount'),
                 ];
             }),
 
@@ -185,7 +183,6 @@ class Donation extends Resource
 
             new TotalAmount(),
             new CityWithMostBeneficiary(),
-            new ExpenseReport()
         ];
     }
 }

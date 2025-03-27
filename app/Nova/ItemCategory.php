@@ -56,7 +56,7 @@ class ItemCategory extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Category Name','category_name')->required()
+            Text::make(__('Category Name'),'category_name')->required()
         ];
     }
 

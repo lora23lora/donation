@@ -33,6 +33,47 @@ class Income extends Resource
      *
      * @var array
      */
+
+     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Incomes');
+    }
+
+    /**
+     * Get the displayable singular label of the resource.
+     *
+     * @return string
+     */
+    public static function singularLabel()
+    {
+        return __('Income');
+    }
+
+    /**
+     * Get the text for the create resource button.
+     *
+     * @return string|null
+     */
+    public static function createButtonLabel()
+    {
+        return __('Create Income');
+    }
+
+    /**
+     * Get the text for the update resource button.
+     *
+     * @return string|null
+     */
+    public static function updateButtonLabel()
+    {
+        return __('Update Income');
+    }
+
     public static $search = [
         'id', 'name', 'amount'
     ];
@@ -46,7 +87,7 @@ class Income extends Resource
     public function fields(NovaRequest $request)
     {
         return [
-            ID::make()->sortable(),
+            ID::make(__('ID'),'id')->sortable(),
             Text::make(__('Name'),'name')->rules('required', 'string', 'max:255'),
             Number::make(__('Amount'),'amount')->rules('required','numeric')->displayUsing(function ($amount) {
                 return number_format($amount, 0, '.', ',');

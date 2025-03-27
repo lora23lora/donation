@@ -1,42 +1,57 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Beneficiary PDF</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f9fa;
+        }
+
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        .logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 180px;
+            height: 150px;
         }
 
         table {
             border-collapse: collapse;
-            width: 100%;
-        }
-
-        th,
-        td {
-            text-align: left;
-            padding: 8px;
-            border: 1px solid rgba(211, 213, 214, 0.89);
+            width: 90%;
+            margin: 20px auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
         }
 
         th {
-            background-color: #67a0c4;
+            background-color: #4CAF50;
             color: white;
+            padding: 10px;
+            font-size: 10px;
+            text-transform: uppercase;
+            text-align: center;
         }
 
-        td:first-child,
-        th:first-child {
-            border-left: none;
-        }
-
-        td:last-child,
-        th:last-child {
-            border-right: none;
+        td {
+            padding: 10px;
+            font-size: 13px;
+            color: #555;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
         }
 
         tbody tr:nth-child(odd) {
-            background-color: #ecf5fb;
+            background-color: #f2f2f2;
         }
 
         tbody tr:nth-child(even) {
@@ -44,9 +59,9 @@
         }
     </style>
 </head>
-
 <body>
-    {{-- <div class="title">Donation Information</div> --}}
+    <img src="logo.jpg" class="logo" alt="Logo">
+
     <table>
         <thead>
             <tr>
@@ -64,38 +79,33 @@
                 <th>Note</th>
             </tr>
         </thead>
-        <tbody >
+        <tbody>
             @foreach ($models as $model)
                 @php
-                    $rowColor = $loop->iteration % 2 == 0 ? '#ffffff' : '#ecf5fb';
                     $statusArray = is_array($model->status) ? $model->status : json_decode($model->status);
                 @endphp
-                <tr style="background-color: {{ $rowColor }}">
+                <tr>
                     <td>{{ $model->id }}</td>
-                    <td>{{ $model->name }}</td>
-                    <td>{{ $model->address }}</td>
-                    <td>{{ $model->familyMembers }}</td>
+                    <td>{{ $model->name ?? '' }}</td>
+                    <td>{{ $model->address ?? '' }}</td>
+                    <td>{{ $model->familyMembers ?? '' }}</td>
                     <td>{{ $model->city->city_name ?? '' }}</td>
-                    <td>{{ $model->birthdate }}</td>
+                    <td>{{ $model->birthdate ?? '' }}</td>
                     <td>
                         @if(is_array($statusArray))
                             {{ implode(', ', \App\Models\Status::whereIn('status_id', $statusArray)->pluck('name')->toArray()) }}
                         @else
-                            {{ \App\Models\Status::find($statusArray)->name }}
+                            {{ optional(\App\Models\Status::find($statusArray))->name ?? '' }}
                         @endif
                     </td>
-                    <td>{{ $model->Tel1 }}</td>
-                    <td>{{ $model->Tel2 }}</td>
-                    <td>{{ $model->superviser->name ?? '' }}</td>
-                    <td>{{ $model->date }}</td>
-                    <td>{{ $model->note }}</td>
+                    <td>{{ $model->Tel1 ?? '' }}</td>
+                    <td>{{ $model->Tel2 ?? '' }}</td>
+                    <td>{{ optional($model->superviser)->name ?? '' }}</td>
+                    <td>{{ $model->date ? \Carbon\Carbon::parse($model->date)->format('Y-m-d') : '' }}</td>
+                    <td>{{ $model->note ?? '' }}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
 </body>
-
 </html>
-<tbody>
-
-</tbody>

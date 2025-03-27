@@ -8,6 +8,16 @@ use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class ExportCsv extends DownloadExcel implements WithMapping, WithHeadings
 {
+
+    /**
+     * Get the displayable name of the filter.
+     *
+     * @return string
+     */
+    public function name()
+    {
+        return __("Export To CSV");
+    }
     /**
      * @return array
      */

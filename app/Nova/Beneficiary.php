@@ -177,7 +177,7 @@ class Beneficiary extends Resource
         return [
             new ExportCsv,
             new BeneficiaryPdf,
-            new ImportBeneficiaries
+            // new ImportBeneficiaries
         ];
     }
 

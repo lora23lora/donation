@@ -2,6 +2,8 @@
 
 namespace App\Policies;
 
+use App\Models\Donation;
+use App\Models\Storage;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -62,6 +64,27 @@ class DonationPolicy
 
         return true;
     }
+    public function attachAnyStorage(User $user, Donation $donation)
+    {
+        return true; // Allow attaching new storage items
+    }
+
+    public function attachStorage(User $user, Donation $donation, Storage $storage)
+    {
+        // If the item is already attached, disable "edit" button
+        if ($donation->storages->contains('item_id', $storage->item_id)) {
+            return false;
+        }
+
+        // Otherwise, allow attaching
+        return $this->attachAnyStorage($user, $donation);
+    }
+
+    public function detachStorage(User $user, Donation $donation, Storage $storage)
+    {
+        return true; // Allow detaching storage items if needed
+    }
+
 
     /**
      * Determine whether the user can delete the donation.

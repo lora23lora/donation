@@ -14,6 +14,16 @@ class ExportToPdf extends Action
 {
     use InteractsWithQueue, Queueable;
 
+   /**
+     * Get the displayable name of the filter.
+     *
+     * @return string
+     */
+    public function name()
+    {
+        return __("Export to PDF");
+    }
+
     /**
      * Perform the action on the given models.
      *

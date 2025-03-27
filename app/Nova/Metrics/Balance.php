@@ -12,6 +12,16 @@ class Balance extends Value
 {
     public $icon = 'scale';
 
+
+    /**
+     * Get the displayable name of the filter.
+     *
+     * @return string
+     */
+    public function name()
+    {
+        return __("Balance");
+    }
     /**
      * Calculate the value of the metric.
      *
@@ -44,9 +54,6 @@ class Balance extends Value
             60 => Nova::__('60 Days'),
             365 => Nova::__('365 Days'),
             'TODAY' => Nova::__('Today'),
-            'MTD' => Nova::__('Month To Date'),
-            'QTD' => Nova::__('Quarter To Date'),
-            'YTD' => Nova::__('Year To Date'),
         ];
     }
 

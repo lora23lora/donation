@@ -16,6 +16,16 @@ use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class ExportDonationToCsv extends DownloadExcel implements WithMapping, WithHeadings
 {
+
+    /**
+     * Get the displayable name of the filter.
+     *
+     * @return string
+     */
+    public function name()
+    {
+        return __("Export Donation To CSV");
+    }
      /**
      * @return array
      */
@@ -45,36 +55,34 @@ class ExportDonationToCsv extends DownloadExcel implements WithMapping, WithHead
      */
     public function map($model): array
     {
-        $lineItems = [];
-        // foreach ($model->line_items as $line_item) {
-        //     $storageItem = Storage::find($line_item['attributes']['items']);
-        //     $itemName = $storageItem ? $storageItem->item_name : 'Unknown';
-        //     $lineItems[] = " $itemName - Qty: {$line_item['attributes']['qty']},";
-        // }
+        $items = $model->storages->pluck('item_name')->join(', ');
         return [
-            $model->beneficiary->name,
-            $model->beneficiary->city->city_name,
-            $model->beneficiary->address,
-            $model->beneficiary->birthdate,
-            $model->beneficiary->familyMembers,
-            $this->getStatusString($model->beneficiary->status),
-            $model->amount,
-            $model->beneficiary->superviser->name ?? 'N/A',
-            $model->beneficiary->Tel1,
-            $model->beneficiary->Tel2,
-            implode("\n", $lineItems), // Join line items into a string
-            $model->beneficiary->active,
-            $model->note,
+            $model->beneficiary?->name ?? '',
+            $model->beneficiary?->city?->city_name ?? '',
+            $model->beneficiary?->address ?? '',
+            $model->beneficiary?->birthdate ?? '',
+            $model->beneficiary?->familyMembers ?? '',
+            $this->getStatusString($model->beneficiary->status ?? ''),
+            $model->amount ?? '',
+            $model->superviser?->name ?? 'N/A',
+            $model->beneficiary?->Tel1 ?? '',
+            $model->beneficiary?->Tel2 ?? '',
+            $items, // Join line items into a string
+            $model->note ?? '',
         ];
     }
 
 
     protected function getStatusString($status): string
     {
+        if (empty($status)) {
+            return ''; // Return an empty string if status is null or empty
+        }
+
         if (is_array($status)) {
             return implode(', ', \App\Models\Status::whereIn('status_id', $status)->pluck('name')->toArray());
         }
 
-        return \App\Models\Status::find($status)->name;
+        return \App\Models\Status::find($status)?->name ?? '';
     }
 }

@@ -12,7 +12,15 @@ class TotalExpense extends Value
 
     public $icon = 'calculator';
 
-
+    /**
+     * Get the displayable name of the filter.
+     *
+     * @return string
+     */
+    public function name()
+    {
+        return __("Total Expense");
+    }
     /**
      * Calculate the value of the metric.
      *
@@ -42,9 +50,6 @@ class TotalExpense extends Value
             60 => Nova::__('60 Days'),
             365 => Nova::__('365 Days'),
             'TODAY' => Nova::__('Today'),
-            'MTD' => Nova::__('Month To Date'),
-            'QTD' => Nova::__('Quarter To Date'),
-            'YTD' => Nova::__('Year To Date'),
         ];
     }
 

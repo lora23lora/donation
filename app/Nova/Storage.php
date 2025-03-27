@@ -92,15 +92,15 @@ class Storage extends Resource
             ID::make(__('item_id'),'item_id')->sortable(),
             Text::make(__('Item Name'),'item_name'),
             Text::make(__('Unit'),'unit')->rules('required','string','max:255'),
-            BelongsTo::make('Item Category','category','App\Nova\ItemCategory')->showCreateRelationButton(),
+            BelongsTo::make(__('Item Category'),'category','App\Nova\ItemCategory')->showCreateRelationButton(),
             Textarea::make(__('Note'),'note'),
             BelongsToMany::make('Donation', 'donations', 'App\Nova\Donation')->fields(function ($request, $relatedModel) {
                 return [
-                    Hidden::make('Date', 'date')
+                    Hidden::make(__('Date'), 'date')
                     ->default(now()->format('Y-m-d'))
                     ->rules('required', 'date'),
-                    Number::make('Price','price')->nullable(),
-                    Number::make('Amount','amount'),
+                    Number::make(__('Price'),'price')->nullable(),
+                    Number::make(__('Amount'),'amount'),
                 ];
             }),
 
@@ -138,7 +138,7 @@ class Storage extends Resource
     {
         return [
 
-            new ItemReport()
+            // new ItemReport()
         ];
     }
 
